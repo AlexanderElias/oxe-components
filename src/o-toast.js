@@ -57,11 +57,6 @@ export default {
 		this.eToast = this.querySelector('.o-toast');
 	},
 	style: `
-		:host {
-			--o-toast-widget: #999;
-			--o-toast-font: currentColor;
-			--o-toast-shadow: rgba(0, 0, 0, 0.1);
-		}
 		.o-toast {
 			right: 0;
 			bottom: 0;

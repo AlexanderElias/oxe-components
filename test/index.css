@@ -1,8 +1,24 @@
+:root: {
+
+	--o-panel-widget: #999;
+	--o-panel-icon: currentColor;
+	--o-panel-hover: rgba(0, 0, 0, 0.1);
+	--o-panel-shadow: rgba(0, 0, 0, 0.1);
+	--o-panel-translate: 150ms ease-in-out;
+
+	--o-modal-widget: #999;
+	--o-modal-shadow: rgba(0, 0, 0, 0.3);
+	--o-modal-background: rgba(0, 0, 0, 0.3);
+
+	--o-toast-widget: #999;
+	--o-toast-font: currentColor;
+	--o-toast-shadow: rgba(0, 0, 0, 0.1);
+
+}
 * {
 	margin: 0;
 	padding: 0;
 	font-family: sans-serif;
-	/* box-sizing: border-box; */
 }
 body {
 	width: 100%;

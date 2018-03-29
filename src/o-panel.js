@@ -94,13 +94,6 @@ export default {
 		self.setup();
 	},
 	style: `
-		:host {
-			--o-panel-widget: #999;
-			--o-panel-icon: currentColor;
-			--o-panel-hover: rgba(0, 0, 0, 0.1);
-			--o-panel-shadow: rgba(0, 0, 0, 0.1);
-			--o-panel-translate: 150ms ease-in-out;
-		}
 		:host * {
 			box-sizing: border-box;
 			transition: transform var(--o-panel-translate);

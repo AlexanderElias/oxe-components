@@ -58,9 +58,6 @@ export default {
 	},
 	style: `
 		:host {
-			--o-modal-widget: #999;
-			--o-modal-shadow: rgba(0, 0, 0, 0.3);
-			--o-modal-background: rgba(0, 0, 0, 0.3);
 			top: 0;
 			left: 0;
 			opacity: 0;
