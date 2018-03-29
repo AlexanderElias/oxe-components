@@ -6,7 +6,7 @@
 	"scripts": {
 		"t": "muleify serve test",
 		"w": "muleify pack -w src test/lib",
-		"b": "rm -r dist/* && muleify pack -m src dist",
+		"b": "rm -r dist/* && muleify pack -mt src dist",
 		"co": "cp node_modules/oxe/dist/oxe.min.js test/."
 	},
 	"repository": {
