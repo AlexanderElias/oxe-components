@@ -1,7 +1,7 @@
 {
 	"name": "oxe-components",
 	"version": "1.0.0",
-	"description": "Oxe Components",
+	"description": "A library for Oxe Components. Coming Soon.",
 	"main": "index.js",
 	"scripts": {
 		"t": "muleify serve test",
