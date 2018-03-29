@@ -3,7 +3,12 @@
 	"version": "1.0.0",
 	"description": "Oxe Components",
 	"main": "index.js",
-	"scripts": {},
+	"scripts": {
+		"t": "muleify serve test",
+		"w": "muleify pack -w src test/lib",
+		"b": "rm -r dist/* && muleify pack -m src dist",
+		"co": "cp node_modules/oxe/dist/oxe.min.js test/."
+	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/AlexanderElias/oxe-components.git"
@@ -13,5 +18,8 @@
 	"bugs": {
 		"url": "https://github.com/AlexanderElias/oxe-components/issues"
 	},
-	"homepage": "https://github.com/AlexanderElias/oxe-components#readme"
+	"homepage": "https://github.com/AlexanderElias/oxe-components#readme",
+	"devDependencies": {
+		"oxe": "^3.6.8"
+	}
 }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Test</title>
+	<script src="./oxe.min.js"></script>
+	<link rel="stylesheet" href="./index.css" />
+</head>
+<body>
+
+	<script type="module">
+		import oPanel from './lib/o-panel.js';
+
+		Oxe.setup({
+			component: {
+				components: [
+					oPanel
+				]
+			}
+		});
+	</script>
+
+	<o-panel>
+		<div slot="menu-body">
+			<a>Overview</a>
+			<a>Settings</a>
+		</div>
+		<div slot="menu-foot">
+			<a>Sign Out</a>
+		</div>
+	</o-panel>
+
+</body>
+</html>
