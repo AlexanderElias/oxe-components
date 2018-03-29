@@ -1,0 +1,19 @@
+{
+  "name": "oxe-components",
+  "version": "1.0.0",
+  "description": "Oxe Components",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexanderElias/oxe-components.git"
+  },
+  "author": "Alexander Elias",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/AlexanderElias/oxe-components/issues"
+  },
+  "homepage": "https://github.com/AlexanderElias/oxe-components#readme"
+}
