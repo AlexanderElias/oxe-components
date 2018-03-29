@@ -8,15 +8,31 @@
 <body>
 
 	<script type="module">
+		import oModal from './lib/o-modal.js';
 		import oPanel from './lib/o-panel.js';
 
 		Oxe.setup({
 			component: {
 				components: [
-					oPanel
+					oPanel,
+					oModal
 				]
 			}
 		});
+
+		var modal = document.createElement('o-modal');
+		document.body.appendChild(modal);
+
+		setTimeout(function () {
+			modal.open({
+				title: 'One Title',
+				message: 'One Message',
+				cancel: function () {
+					modal.close();
+				}
+			});
+		}, 1000);
+
 	</script>
 
 	<o-panel>
