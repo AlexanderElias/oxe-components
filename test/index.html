@@ -8,6 +8,7 @@
 <body>
 
 	<script type="module">
+		import oToast from './lib/o-toast.js';
 		import oModal from './lib/o-modal.js';
 		import oPanel from './lib/o-panel.js';
 
@@ -15,7 +16,8 @@
 			component: {
 				components: [
 					oPanel,
-					oModal
+					oModal,
+					oToast
 				]
 			}
 		});
@@ -32,6 +34,14 @@
 				}
 			});
 		}, 1000);
+
+		var toast = document.createElement('o-toast');
+		document.body.appendChild(toast);
+
+		toast.show({
+			title: 'Hello',
+			message: 'World'
+		});
 
 	</script>
 

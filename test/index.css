@@ -1,4 +1,4 @@
-:root: {
+:root {
 
 	--o-panel-widget: #999;
 	--o-panel-icon: currentColor;
@@ -10,8 +10,8 @@
 	--o-modal-shadow: rgba(0, 0, 0, 0.3);
 	--o-modal-background: rgba(0, 0, 0, 0.3);
 
-	--o-toast-widget: #999;
-	--o-toast-font: currentColor;
+	--o-toast-background: #999;
+	--o-toast-color: currentColor;
 	--o-toast-shadow: rgba(0, 0, 0, 0.1);
 
 }
