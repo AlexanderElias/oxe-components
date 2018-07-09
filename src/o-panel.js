@@ -115,9 +115,6 @@ export default {
 		self.setup();
 	},
 	style: `
-        :host {
-            --o-panel-icon: black;
-        }
 		:host * {
 			box-sizing: border-box;
 		}
