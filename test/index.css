@@ -1,5 +1,6 @@
 :root {
 
+	--o-panel-icon: black;
 	--o-panel-widget: #999;
 	--o-panel-hover: rgba(0, 0, 0, 0.1);
 	--o-panel-shadow: rgba(0, 0, 0, 0.1);

@@ -1,6 +1,9 @@
 
 export default {
 	name: 'o-panel',
+    modal: {
+        title: '',
+    },
 	properties: {
 		getNotifications: {
 			value: function () {
@@ -106,6 +109,11 @@ export default {
             self.element.background.classList.toggle('active', count > 0);
         };
 
+        var routed = function () {
+			self.model.title = Oxe.location.route.title;
+		};
+
+		Oxe.router.on('routed', routed);
 		self.element.menuIcon.addEventListener('click', toggle.bind(self, self.element.menuIcon, self.element.menuContainer));
 		self.element.trayIcon.addEventListener('click', toggle.bind(self, self.element.trayIcon, self.element.trayContainer));
 		self.element.trayClear.addEventListener('click', self.clear.bind(self));
@@ -306,7 +314,9 @@ export default {
 				<div></div>
 				<div></div>
 			</div>
-			<div class="bar-title"></div>
+			<div class="bar-title">
+                <div o-text="title"></div>
+            </div>
 			<div class="tray-icon">
 				<svg viewBox="0 0 24 24">
 				    <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
