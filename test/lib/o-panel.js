@@ -25,6 +25,8 @@ export default {
 		notify: {
 			enumerable: true,
 			value: function (data, flag) {
+                var self = this;
+
 				var notification = document.createElement('div');
 				var details = document.createElement('div');
 				var message = document.createElement('div');
@@ -43,8 +45,7 @@ export default {
 				notification.appendChild(message);
 				notification.appendChild(details);
 
-				var tray = this.querySelector('.tray-body');
-				tray.appendChild(notification);
+				self.element.trayBody.appendChild(notification);
 
 				if (flag) return;
 
@@ -55,56 +56,82 @@ export default {
 		},
 		clear: {
 			enumerable: true,
-			value: function (data) {
-				var tray = this.querySelector('.tray-body');
+			value: function () {
+                var self = this;
 
-				while (tray.lastElementChild) {
-					tray.removeChild(tray.lastElementChild);
+				while (self.element.trayBody.lastElementChild) {
+					self.element.trayBody.removeChild(self.element.trayBody.lastElementChild);
 				}
 
 				this.setNotifications([]);
 			}
-		}
+		},
+        close: {
+            enumerable: true,
+            value: function (e) {
+                var self = this;
+                if (e.type ==='keydown' && e.keyCode === 27 || e.type === 'click') {
+                    self.element.menuIcon.classList.remove('active');
+                    self.element.menuContainer.classList.remove('active');
+                    self.element.trayIcon.classList.remove('active');
+                    self.element.trayContainer.classList.remove('active');
+                    self.element.background.classList.remove('active');
+                }
+            }
+        }
 	},
 	created: function () {
 		var self = this;
+        var count = 0;
 
-		var menuIcon = self.querySelector('.menu-icon');
-		var menuContainer = self.querySelector('.menu-container');
+        self.element = {};
+        self.element.background = self.querySelector('.panel-background');
+		self.element.menuIcon = self.querySelector('.menu-icon');
+		self.element.menuContainer = self.querySelector('.menu-container');
+		self.element.trayIcon = self.querySelector('.tray-icon');
+		self.element.trayBody = self.querySelector('.tray-body');
+		self.element.trayClear = self.querySelector('.tray-clear');
+		self.element.trayContainer = self.querySelector('.tray-container');
 
-		var trayIcon = self.querySelector('.tray-icon');
-		var trayBody = self.querySelector('.tray-body');
-		var trayClear = self.querySelector('.tray-clear');
-		var trayContainer = self.querySelector('.tray-container');
+        var toggle = function (icon, container) {
+            var flag = icon.classList.toggle('active');
+			container.classList.toggle('active');
 
-		menuIcon.addEventListener('click', function () {
-			menuIcon.classList.toggle('active');
-			menuContainer.classList.toggle('active');
-		});
+            if (flag) {
+                count++;
+            } else {
+                count--;
+            }
 
-		trayIcon.addEventListener('click', function () {
-			trayIcon.classList.toggle('active');
-			trayContainer.classList.toggle('active');
-		});
+            self.element.background.classList.toggle('active', count > 0);
+        };
 
-		trayClear.addEventListener('click', function () {
-			self.clear();
-		});
+		self.element.menuIcon.addEventListener('click', toggle.bind(self, self.element.menuIcon, self.element.menuContainer));
+		self.element.trayIcon.addEventListener('click', toggle.bind(self, self.element.trayIcon, self.element.trayContainer));
+		self.element.trayClear.addEventListener('click', self.clear.bind(self));
+		self.element.background.addEventListener('click', self.close.bind(self));
+        window.addEventListener('keydown', self.close.bind(self));
 
 		self.setup();
 	},
 	style: `
-		:host {
-			--o-panel-widget: #999;
-			--o-panel-icon: currentColor;
-			--o-panel-hover: rgba(0, 0, 0, 0.1);
-			--o-panel-shadow: rgba(0, 0, 0, 0.1);
-			--o-panel-translate: 150ms ease-in-out;
-		}
+        :host {
+            --o-panel-icon: black;
+        }
 		:host * {
 			box-sizing: border-box;
-			transition: transform var(--o-panel-translate);
 		}
+        .panel-background {
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			display: none;
+			position: fixed;
+		}
+        .panel-background.active {
+            display: block;
+        }
 		.bar-container {
 			top: 0;
 			left: 0;
@@ -136,6 +163,7 @@ export default {
 			width: calc(100% - 6px);
 			transform-origin: 50% 50%;
 			background-color: var(--o-panel-icon);
+			transition: transform var(--o-panel-translate);
 		}
 		.menu-icon > div:nth-child(1) {
 			transform: translate(3px, 9px);
@@ -171,9 +199,10 @@ export default {
 			position: fixed;
 			flex-flow: column;
 			padding-top: 54px;
-			transform: translate(-100%, 0);
+            transform: translate(-100%, 0);
 			background-color: var(--o-panel-widget);
 			box-shadow: 3px 0 6px var(--o-panel-shadow);
+			transition: transform var(--o-panel-translate);
 		}
 		.menu-container.active {
 			transform: translate(0, 0);
@@ -200,6 +229,7 @@ export default {
 			transform: translate(100%, 0);
 			background-color: var(--o-panel-widget);
 			box-shadow: -3px 0 6px var(--o-panel-shadow);
+			transition: transform var(--o-panel-translate);
 		}
 		.tray-container.active {
 			transform: translate(0, 0);
@@ -238,6 +268,8 @@ export default {
 		[slot=menu-foot] > a:hover,
 		[slot=menu-body] > button:hover,
 		[slot=menu-foot] > button:hover,
+        .menu-icon:hover,
+        .tray-icon:hover,
 		.tray-body > a:hover,
 		.tray-foot > a:hover,
 		.tray-body > button:hover,
@@ -269,15 +301,16 @@ export default {
 		}
 	`,
 	template: `
+        <div class="panel-background"></div>
 
 		<div class="bar-container">
-			<div class="menu-icon icon">
+			<div class="menu-icon">
 				<div></div>
 				<div></div>
 				<div></div>
 			</div>
 			<div class="bar-title"></div>
-			<div class="tray-icon icon">
+			<div class="tray-icon">
 				<svg viewBox="0 0 24 24">
 				    <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
 				</svg>

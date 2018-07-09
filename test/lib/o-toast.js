@@ -66,7 +66,7 @@ export default {
 			border-radius: 1px;
 			transform: translate(100%, -60%);
 			box-shadow: 0 3px 9px var(--o-toast-shadow);
-			background-color: var(--o-toast-background);
+			background-color: var(--o-toast-widget);
 		}
 		.o-toast-title {
 			font-weight: bolder;
