@@ -133,6 +133,7 @@ export default {
 			height: 100%;
 			display: none;
 			position: fixed;
+            background-color: var(--o-panel-background);
 		}
         .panel-background.active {
             display: block;
@@ -145,8 +146,8 @@ export default {
 			display: flex;
 			position: fixed;
 			align-items: center;
-			background-color: var(--o-panel-widget);
 			box-shadow: 0 3px 6px var(--o-panel-shadow);
+			background-color: var(--o-panel-bar-background);
 		}
 		.bar-title {
 			flex: 1 1;
@@ -160,7 +161,9 @@ export default {
 			width: 48px;
 			height: 48px;
 			cursor: pointer;
+            border-radius: 3px;
 			position: relative;
+			transition: background-color var(--o-panel-translate);
 		}
 		.menu-icon > div {
 			height: 3px;
@@ -205,9 +208,9 @@ export default {
 			flex-flow: column;
 			padding-top: 54px;
             transform: translate(-100%, 0);
-			background-color: var(--o-panel-widget);
 			box-shadow: 3px 0 6px var(--o-panel-shadow);
 			transition: transform var(--o-panel-translate);
+			background-color: var(--o-panel-menu-background);
 		}
 		.menu-container.active {
 			transform: translate(0, 0);
@@ -218,6 +221,8 @@ export default {
 			height: 48px;
 			padding: 9px;
 			cursor: pointer;
+            border-radius: 3px;
+			transition: background-color var(--o-panel-translate);
 		}
 		.tray-icon > svg {
 			fill: var(--o-panel-icon);
@@ -232,7 +237,7 @@ export default {
 			flex-flow: column;
 			padding-top: 48px;
 			transform: translate(100%, 0);
-			background-color: var(--o-panel-widget);
+			background-color: var(--o-panel-tray-background);
 			box-shadow: -3px 0 6px var(--o-panel-shadow);
 			transition: transform var(--o-panel-translate);
 		}
@@ -264,9 +269,10 @@ export default {
 			all: unset;
 			display: flex;
 			cursor: pointer;
-			color: var(--o-panel-icon);
 			text-align: center;
+            align-items: center;
 			padding: 1rem 1.5rem;
+			color: var(--o-panel-icon);
 			background-color: transparent;
 		}
 		[slot=menu-body] > a:hover,
@@ -280,6 +286,18 @@ export default {
 		.tray-body > button:hover,
 		.tray-foot > button:hover {
 			background-color: var(--o-panel-hover);
+		}
+		[slot=menu-body] > a:active,
+		[slot=menu-foot] > a:active,
+		[slot=menu-body] > button:active,
+		[slot=menu-foot] > button:active,
+        .menu-icon:active,
+        .tray-icon:active,
+		.tray-body > a:active,
+		.tray-foot > a:active,
+		.tray-body > button:active,
+		.tray-foot > button:active {
+			background-color: var(--o-panel-active);
 		}
 		.notification {
 			width: 300px;
