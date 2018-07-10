@@ -57,7 +57,7 @@ export default {
 		this.eConfirm = this.querySelector('.o-modal-action[o-on-click="confirm"]');
 	},
 	style: `
-		:host {
+		o-modal {
 			top: 0;
 			left: 0;
 			opacity: 0;
@@ -70,7 +70,7 @@ export default {
 			justify-content: center;
 			background-color: var(--o-modal-background);
 		}
-		:host.active {
+		o-modal.active {
 			z-index: 1;
 			opacity: 1;
 		}
@@ -78,8 +78,12 @@ export default {
 			transform: translate(0, 0);
 		}
 		.o-modal-body {
+            width: 30vw;
 			padding: 1rem;
-			flex: 0 0 300px;
+            flex: 1 1 auto;
+            margin: 0.6rem;
+            max-width: 600px;
+            border-radius: 3px;
 			transform: translate(50%, 50%);
 			background-color: var(--o-modal-widget);
 			box-shadow: 0 3px 6px var(--o-modal-shadow);

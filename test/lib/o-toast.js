@@ -68,7 +68,7 @@ export default {
 			border-radius: 3px;
 			transform: translate(100%, -3vh);
 			background-color: var(--o-toast-widget);
-			box-shadow: 0 3px 9px var(--o-toast-shadow);
+			box-shadow: 0 3px 6px var(--o-toast-shadow);
             transition: transform var(--o-toast-transition);
 		}
 		.o-toast-title {

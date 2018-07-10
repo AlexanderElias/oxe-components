@@ -1,7 +1,8 @@
 
 export default {
 	name: 'o-panel',
-    modal: {
+    model: {
+        count: 0,
         title: '',
     },
 	properties: {
@@ -74,6 +75,7 @@ export default {
             value: function (e) {
                 var self = this;
                 if (e.type ==='keydown' && e.keyCode === 27 || e.type === 'click') {
+                    self.model.count = 0;
                     self.element.menuIcon.classList.remove('active');
                     self.element.menuContainer.classList.remove('active');
                     self.element.trayIcon.classList.remove('active');
@@ -85,8 +87,7 @@ export default {
 	},
 	created: function () {
 		var self = this;
-        var count = 0;
-
+        
         self.element = {};
         self.element.background = self.querySelector('.o-panel-background');
 		self.element.menuIcon = self.querySelector('.menu-icon');
@@ -101,12 +102,12 @@ export default {
 			container.classList.toggle('active');
 
             if (flag) {
-                count++;
+                self.model.count++;
             } else {
-                count--;
+                self.model.count--;
             }
 
-            self.element.background.classList.toggle('active', count > 0);
+            self.element.background.classList.toggle('active', self.model.count > 0);
         };
 
         var routed = function () {
@@ -126,14 +127,17 @@ export default {
         .o-panel-background {
 			top: 0;
 			left: 0;
+            opacity: 0;
+            z-index: -1;
 			width: 100%;
 			height: 100%;
-			display: none;
 			position: fixed;
             background-color: var(--o-panel-background);
+		    transition: opacity var(--o-panel-transition);
 		}
         .o-panel-background.active {
-            display: block;
+            opacity: 1;
+            z-index: 0;
         }
         .o-panel-icon:hover {
 			background-color: var(--o-panel-icon-hover);
@@ -254,23 +258,23 @@ export default {
 		.tray-icon > svg {
 			fill: var(--o-panel-icon);
 		} 	
-		[slot="menu-body"],
-		[slot="menu-foot"],
-		.tray-body,
-		.tray-foot {
-			flex: 1 0 auto;
-			display: flex;
-			flex-direction: column;
-		}
         [slot="menu-body"],
 		.tray-body {
             width: 30vw;
+            display: flex;
+            flex: 1 0 auto;
             min-width: 150px;
             max-width: 300px;
 			overflow-y: auto;
-			height: calc(100% - 55px);
+			flex-direction: column;
 			justify-content: flex-start;
-		} 
+		}
+        [slot="menu-foot"],
+		.tray-foot { 
+            display: flex;
+			flex: 0 1 auto;
+			flex-direction: column;
+        }
         .o-panel-item {
             all: unset;
 			display: flex;
