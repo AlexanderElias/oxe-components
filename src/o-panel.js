@@ -312,6 +312,10 @@ export default {
 		.tray-foot > button:active {
 			background-color: var(--o-panel-active);
 		}
+        [slot=menu-body] > {
+            align-items: center;
+            justify-content: center;
+        }
         .notification {
             width: 30vw;
             flex: 0 0 auto;
