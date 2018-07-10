@@ -60,13 +60,16 @@ export default {
 		.o-toast {
 			right: 0;
 			bottom: 0;
-			width: 300px;
+            width: 30vw;
 			padding: 1rem;
 			position: fixed;
-			border-radius: 1px;
-			transform: translate(100%, -60%);
-			box-shadow: 0 3px 9px var(--o-toast-shadow);
+            min-width: 150px;
+            max-width: 300px;
+			border-radius: 3px;
+			transform: translate(100%, -3vh);
 			background-color: var(--o-toast-widget);
+			box-shadow: 0 3px 9px var(--o-toast-shadow);
+            transition: transform var(--o-toast-transition);
 		}
 		.o-toast-title {
 			font-weight: bolder;
@@ -76,7 +79,7 @@ export default {
 			color: var(--o-toast-color);
 		}
 		.o-toast.active {
-			transform: translate(-10%, -60%);
+			transform: translate(-3vw, -3vh);
 		}
 	`,
 	template: `

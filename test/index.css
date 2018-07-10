@@ -9,10 +9,15 @@
 	--o-panel-bar-background: lightblue;
 	--o-panel-menu-background: lightpink;
 	--o-panel-tray-background: lightgreen;
-	--o-panel-hover: rgba(0, 0, 0, 0.1);
-	--o-panel-active: rgba(0, 0, 0, 0.3);
-	--o-panel-shadow: rgba(0, 0, 0, 0.1);
-	--o-panel-transition: 150ms ease-in-out;
+	
+    --o-panel-icon-hover: rgba(0, 0, 0, 0.1);
+	--o-panel-icon-active: rgba(0, 0, 0, 0.3);
+
+    --o-panel-item-hover: rgba(0, 0, 0, 0.1);
+	--o-panel-item-active: rgba(0, 0, 0, 0.3);
+	
+	--o-panel-transition: 150ms ease;
+    --o-panel-shadow: rgba(0, 0, 0, 0.1);
 	--o-panel-background: rgba(0, 0, 0, 0.1);
     
 	--o-modal-widget: #999;
@@ -20,6 +25,7 @@
 	--o-modal-background: rgba(0, 0, 0, 0.3);
 
 	--o-toast-widget: #999;
+	--o-toast-transition: 150ms ease;
 	--o-toast-shadow: rgba(0, 0, 0, 0.1);
 
 }
