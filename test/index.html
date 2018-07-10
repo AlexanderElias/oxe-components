@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="./oxe.min.js"></script>
 	<link rel="stylesheet" href="./index.css" />
 </head>
@@ -22,6 +23,7 @@
 			}
 		});
 
+        // modal
 		var modal = document.createElement('o-modal');
 		document.body.appendChild(modal);
 
@@ -35,6 +37,7 @@
 			});
 		}, 1000);
 
+        // toast
 		var toast = document.createElement('o-toast');
 		document.body.appendChild(toast);
 
@@ -42,6 +45,15 @@
 			title: 'Hello',
 			message: 'World'
 		});
+
+        // panel
+        var panel = document.querySelector('o-panel');
+        panel.model.title = 'Title';
+        panel.notify({
+            title: 'title',
+            message: 'message',
+            details: 'details'
+        });
 
 	</script>
 

@@ -52,9 +52,9 @@ export default {
 
 				if (flag) return;
 
-				var notifications = this.getNotifications();
+				var notifications = self.getNotifications();
 				notifications.push(data);
-				this.setNotifications(notifications);
+				self.setNotifications(notifications);
 			}
 		},
 		clear: {
@@ -143,9 +143,11 @@ export default {
 			left: 0;
 			z-index: 1;
 			width: 100%;
+            height: 55px;
 			display: flex;
 			position: fixed;
 			align-items: center;
+            color: var(--o-panel-bar-color);
 			box-shadow: 0 3px 6px var(--o-panel-shadow);
 			background-color: var(--o-panel-bar-background);
 		}
@@ -154,7 +156,25 @@ export default {
 			margin: 0 1rem;
 			font-size: 3rem;
 			text-align: center;
-			text-transform: uppercase;
+			text-transform: capitalize;
+		}
+        .menu-container {
+			top: 0;
+			left: 0;
+			z-index: 0;
+			height: 100vh;
+			display: flex;
+			position: fixed;
+			flex-flow: column;
+			padding-top: 55px;
+            transform: translate(-100%, 0);
+            color: var(--o-panel-menu-color);
+			box-shadow: 3px 0 6px var(--o-panel-shadow);
+			transition: transform var(--o-panel-transition);
+			background-color: var(--o-panel-menu-background);
+		}
+		.menu-container.active {
+			transform: translate(0, 0);
 		}
 		.menu-icon {
 			margin: 3px;
@@ -163,7 +183,7 @@ export default {
 			cursor: pointer;
             border-radius: 3px;
 			position: relative;
-			transition: background-color var(--o-panel-translate);
+			transition: background-color var(--o-panel-transition);
 		}
 		.menu-icon > div {
 			height: 3px;
@@ -171,7 +191,7 @@ export default {
 			width: calc(100% - 6px);
 			transform-origin: 50% 50%;
 			background-color: var(--o-panel-icon);
-			transition: transform var(--o-panel-translate);
+			transition: transform var(--o-panel-transition);
 		}
 		.menu-icon > div:nth-child(1) {
 			transform: translate(3px, 9px);
@@ -197,36 +217,7 @@ export default {
 			transform:
 				rotate(-45deg)
 				translate(-13px, 17px);
-		}
-		.menu-container {
-			top: 0;
-			left: 0;
-			z-index: 0;
-			height: 100vh;
-			display: flex;
-			position: fixed;
-			flex-flow: column;
-			padding-top: 54px;
-            transform: translate(-100%, 0);
-			box-shadow: 3px 0 6px var(--o-panel-shadow);
-			transition: transform var(--o-panel-translate);
-			background-color: var(--o-panel-menu-background);
-		}
-		.menu-container.active {
-			transform: translate(0, 0);
-		}
-		.tray-icon {
-			margin: 3px;
-			width: 48px;
-			height: 48px;
-			padding: 9px;
-			cursor: pointer;
-            border-radius: 3px;
-			transition: background-color var(--o-panel-translate);
-		}
-		.tray-icon > svg {
-			fill: var(--o-panel-icon);
-		}
+		}	
 		.tray-container {
 			top: 0;
 			right: 0;
@@ -235,19 +226,32 @@ export default {
 			display: flex;
 			position: fixed;
 			flex-flow: column;
-			padding-top: 48px;
+			padding-top: 55px;
 			transform: translate(100%, 0);
-			background-color: var(--o-panel-tray-background);
+            color: var(--o-panel-tray-color);
 			box-shadow: -3px 0 6px var(--o-panel-shadow);
-			transition: transform var(--o-panel-translate);
+			transition: transform var(--o-panel-transition);
+			background-color: var(--o-panel-tray-background);
 		}
 		.tray-container.active {
 			transform: translate(0, 0);
 		}
+        .tray-icon {
+			margin: 3px;
+			width: 48px;
+			height: 48px;
+			padding: 9px;
+			cursor: pointer;
+            border-radius: 3px;
+			transition: background-color var(--o-panel-transition);
+		}
+		.tray-icon > svg {
+			fill: var(--o-panel-icon);
+		} 
 		[slot=menu-body],
 		.tray-body {
 			overflow-y: auto;
-			height: calc(100% - 48px);
+			height: calc(100% - 55px);
 			justify-content: flex-start;
 		}
 		[slot=menu-foot],
@@ -266,14 +270,23 @@ export default {
 		[slot=menu-foot] > *,
 		.tray-body > *,
 		.tray-foot > * {
-			all: unset;
+            all: unset;
 			display: flex;
 			cursor: pointer;
-			text-align: center;
-            align-items: center;
-			padding: 1rem 1.5rem;
-			color: var(--o-panel-icon);
+			padding: 0.9rem 1.3rem;
 			background-color: transparent;
+		}
+        [slot=menu-body] > a,
+		[slot=menu-foot] > a,
+		[slot=menu-body] > button,
+		[slot=menu-foot] > button,
+        .menu-icon,
+        .tray-icon,
+		.tray-body > a,
+		.tray-foot > a,
+		.tray-body > button,
+		.tray-foot > button {
+			transition: background-color var(--o-panel-transition);
 		}
 		[slot=menu-body] > a:hover,
 		[slot=menu-foot] > a:hover,
@@ -299,15 +312,18 @@ export default {
 		.tray-foot > button:active {
 			background-color: var(--o-panel-active);
 		}
-		.notification {
-			width: 300px;
-			max-width: 60vw;
+        .notification {
+            width: 30vw;
+            flex: 0 0 auto;
 			text-align: left;
+             min-width: 150px;
 			flex-direction: column;
+            background-color: transparent;
 			border-bottom: solid 1px currentColor;
 		}
 		.notification-title {
 			font-weight: bolder;
+			text-transform: capitalize;
 		}
 		.notification-message {
 			text-align: left;
@@ -316,6 +332,7 @@ export default {
 			opacity: 0;
 			padding: 0;
 			max-height: 0;
+            transition: max-height var(--o-panel-transition), padding var(--o-panel-transition), opacity var(--o-panel-transition);
 		}
 		.notification:hover .notification-details {
 			opacity: 1;
