@@ -124,6 +124,11 @@ export default {
 		self.setup();
 	},
 	style: `
+        o-panel {
+            width: 100%;
+            height: 55px;
+            display: block;
+        }
         .o-panel-background {
 			top: 0;
 			left: 0;
