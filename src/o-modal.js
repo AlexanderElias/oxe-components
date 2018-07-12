@@ -71,7 +71,7 @@ export default {
 			background-color: var(--o-modal-background);
 		}
 		o-modal.active {
-			z-index: 1;
+			z-index: 4;
 			opacity: 1;
 		}
 		.active .o-modal-body {

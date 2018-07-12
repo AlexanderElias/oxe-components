@@ -87,7 +87,7 @@ export default {
 	},
 	created: function () {
 		var self = this;
-        
+
         self.element = {};
         self.element.background = self.querySelector('.o-panel-background');
 		self.element.menuIcon = self.querySelector('.menu-icon');
@@ -153,7 +153,7 @@ export default {
 		.bar-container {
 			top: 0;
 			left: 0;
-			z-index: 1;
+			z-index: 2;
 			width: 100%;
             height: 55px;
 			display: flex;
@@ -173,7 +173,7 @@ export default {
         .menu-container {
 			top: 0;
 			left: 0;
-			z-index: 0;
+			z-index: 1;
 			height: 100vh;
 			display: flex;
 			position: fixed;
@@ -230,11 +230,11 @@ export default {
 			transform:
 				rotate(-45deg)
 				translate(-13px, 17px);
-		}	
+		}
 		.tray-container {
 			top: 0;
 			right: 0;
-			z-index: 0;
+			z-index: 1;
 			height: 100vh;
 			display: flex;
 			position: fixed;
@@ -262,7 +262,7 @@ export default {
 		}
 		.tray-icon > svg {
 			fill: var(--o-panel-icon);
-		} 	
+		}
         [slot="menu-body"],
 		.tray-body {
             width: 30vw;
@@ -275,7 +275,7 @@ export default {
 			justify-content: flex-start;
 		}
         [slot="menu-foot"],
-		.tray-foot { 
+		.tray-foot {
             display: flex;
 			flex: 0 1 auto;
 			flex-direction: column;
@@ -294,7 +294,7 @@ export default {
 		}
         .o-panel-item:active {
 			background-color: var(--o-panel-item-active);
-		}	
+		}
         .o-panel-notification {
             display: flex;
             flex: 0 0 auto;
