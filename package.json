@@ -1,13 +1,13 @@
 {
 	"name": "oxe-components",
-	"version": "1.5.8",
+	"version": "1.6.0",
 	"description": "A library for Oxe Components",
 	"main": "index.js",
 	"scripts": {
 		"t": "muleify -s test",
 		"w": "muleify -pw src test/lib",
-		"b": "rm -r dis/* && muleify -ptm src dis",
-		"co": "cp node_modules/oxe/dist/oxe.min.js test/."
+		"b": "rm -r dst/* && muleify -ptm src dst",
+		"co": "cp node_modules/oxe/dst/oxe.min.js test/."
 	},
 	"repository": {
 		"type": "git",
@@ -20,6 +20,6 @@
 	},
 	"homepage": "https://github.com/AlexanderElias/oxe-components#readme",
 	"devDependencies": {
-		"oxe": "^3.9.4"
+		"oxe": "^3.12.0"
 	}
 }
