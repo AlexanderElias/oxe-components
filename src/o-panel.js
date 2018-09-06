@@ -122,6 +122,7 @@ export default {
         window.addEventListener('keydown', self.close.bind(self));
 
 		self.setup();
+		self.hidden = false;
 	},
 	style: `
         o-panel {
