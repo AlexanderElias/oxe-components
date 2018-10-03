@@ -268,12 +268,13 @@ export default {
 		.tray-body {
             width: 30vw;
             display: flex;
-            flex: 1 0 auto;
+            flex: 1 1 auto;
             min-width: 150px;
             max-width: 300px;
 			overflow-y: auto;
 			flex-direction: column;
 			justify-content: flex-start;
+		    max-height: calc(100% - 1rem + 1.8rem);
 		}
         [slot="menu-foot"],
 		.tray-foot {
