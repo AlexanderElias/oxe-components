@@ -1,25 +1,25 @@
 :root {
 
 	--o-panel-icon: black;
-   
+
     --o-panel-bar-color: teal;
     --o-panel-menu-color: teal;
     --o-panel-tray-color: teal;
-    
+
 	--o-panel-bar-background: lightblue;
 	--o-panel-menu-background: lightpink;
 	--o-panel-tray-background: lightgreen;
-	
+
     --o-panel-icon-hover: rgba(0, 0, 0, 0.1);
 	--o-panel-icon-active: rgba(0, 0, 0, 0.3);
 
     --o-panel-item-hover: rgba(0, 0, 0, 0.1);
 	--o-panel-item-active: rgba(0, 0, 0, 0.3);
-	
-	--o-panel-transition: 150ms ease;
+
+	--o-panel-transition: 150ms ease-in-out;
     --o-panel-shadow: rgba(0, 0, 0, 0.1);
 	--o-panel-background: rgba(0, 0, 0, 0.1);
-    
+
 	--o-modal-widget: #999;
 	--o-modal-shadow: rgba(0, 0, 0, 0.3);
 	--o-modal-background: rgba(0, 0, 0, 0.3);

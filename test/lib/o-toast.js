@@ -60,6 +60,7 @@ export default {
 		.o-toast {
 			right: 0;
 			bottom: 0;
+			z-index: 3;
             width: 30vw;
 			padding: 1rem;
 			position: fixed;

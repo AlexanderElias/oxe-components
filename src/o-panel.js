@@ -1,4 +1,9 @@
 
+var closeTemplate = document.createElement('div');
+
+closeTemplate.setAttribute('class', 'o-panel-notification-close o-panel-icon');
+closeTemplate.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path d="M38 12.83L35.17 10 24 21.17 12.83 10 10 12.83 21.17 24 10 35.17 12.83 38 24 26.83 35.17 38 38 35.17 26.83 24z"/></svg>';
+
 export default {
 	name: 'o-panel',
     model: {
@@ -18,6 +23,14 @@ export default {
 				window.localStorage.setItem('o-panel-notifications', data);
 			}
 		},
+		removeNotification: {
+			value: function (index) {
+				var data = window.localStorage.getItem('o-panel-notifications');
+				var notifications = this.getNotifications();
+				notifications.splice(index, 1);
+				this.setNotifications(notifications);
+			}
+		},
 		setup: {
 			value: function () {
 				var notifications = this.getNotifications();
@@ -35,9 +48,18 @@ export default {
 				var details = document.createElement('div');
 				var message = document.createElement('div');
 				var title = document.createElement('div');
+				var close = closeTemplate.cloneNode(true);
 
-				notification.setAttribute('class', 'o-panel-notification');
+				close.addEventListener('click', function (e) {
+					var notification = e.target.parentElement;
+					var tray = e.target.parentElement.parentElement;
+					var index = Array.prototype.indexOf.call(tray.children, notification);
+					self.removeNotification(index);
+					tray.removeChild(notification)
+				});
+
 				title.setAttribute('class', 'o-panel-notification-title');
+				notification.setAttribute('class', 'o-panel-notification');
 				message.setAttribute('class', 'o-panel-notification-message');
 				details.setAttribute('class', 'o-panel-notification-details');
 
@@ -48,6 +70,7 @@ export default {
 				notification.appendChild(title);
 				notification.appendChild(message);
 				notification.appendChild(details);
+				notification.appendChild(close);
 
 				self.element.trayBody.appendChild(notification);
 
@@ -90,12 +113,12 @@ export default {
 
         self.element = {};
         self.element.background = self.querySelector('.o-panel-background');
-		self.element.menuIcon = self.querySelector('.menu-icon');
+		self.element.menuIcon = self.querySelector('.o-panel-menu-icon');
 		self.element.menuContainer = self.querySelector('.menu-container');
-		self.element.trayIcon = self.querySelector('.tray-icon');
+		self.element.trayIcon = self.querySelector('.o-panel-tray-icon');
 		self.element.trayBody = self.querySelector('.tray-body');
-		self.element.trayClear = self.querySelector('.o-tray-clear');
 		self.element.trayContainer = self.querySelector('.tray-container');
+		self.element.clear = self.querySelector('.o-panel-clear-icon');
 
         var toggle = function (icon, container) {
             var flag = icon.classList.toggle('active');
@@ -117,7 +140,7 @@ export default {
 		Oxe.router.on('routed', routed);
 		self.element.menuIcon.addEventListener('click', toggle.bind(self, self.element.menuIcon, self.element.menuContainer));
 		self.element.trayIcon.addEventListener('click', toggle.bind(self, self.element.trayIcon, self.element.trayContainer));
-		self.element.trayClear.addEventListener('click', self.clear.bind(self));
+		self.element.clear.addEventListener('click', self.clear.bind(self));
 		self.element.background.addEventListener('click', self.close.bind(self));
         window.addEventListener('keydown', self.close.bind(self));
 
@@ -145,12 +168,28 @@ export default {
             opacity: 1;
             z-index: 0;
         }
+		.o-panel-icon {
+			margin: 3px;
+			width: 48px;
+			height: 48px;
+			padding: 9px;
+			cursor: pointer;
+            border-radius: 3px;
+            box-sizing: border-box;
+			transition: all var(--o-panel-transition);
+		}
         .o-panel-icon:hover {
 			background-color: var(--o-panel-icon-hover);
         }
         .o-panel-icon:active {
 			background-color: var(--o-panel-icon-active);
         }
+		.o-panel-icon > svg {
+			pointer-events: none;
+		}
+		.o-panel-icon > svg > path {
+			fill: var(--o-panel-icon);
+		}
 		.bar-container {
 			top: 0;
 			left: 0;
@@ -190,17 +229,11 @@ export default {
 		.menu-container.active {
 			transform: translate(0, 0);
 		}
-		.menu-icon {
-			margin: 3px;
-			width: 48px;
-			height: 48px;
-			cursor: pointer;
-            border-radius: 3px;
+		.o-panel-menu-icon {
+			padding: 0;
 			position: relative;
-            box-sizing: border-box;
-			transition: background-color var(--o-panel-transition);
 		}
-		.menu-icon > div {
+		.o-panel-menu-icon > div {
 			height: 3px;
 			position: absolute;
 			width: calc(100% - 6px);
@@ -208,26 +241,26 @@ export default {
 			background-color: var(--o-panel-icon);
 			transition: transform var(--o-panel-transition);
 		}
-		.menu-icon > div:nth-child(1) {
+		.o-panel-menu-icon > div:nth-child(1) {
 			transform: translate(3px, 9px);
 		}
-		.menu-icon > div:nth-child(2) {
+		.o-panel-menu-icon > div:nth-child(2) {
 			transform: translate(3px, calc(24px - (3px/2)) );
 		}
-		.menu-icon > div:nth-child(3) {
+		.o-panel-menu-icon > div:nth-child(3) {
 			transform: translate(3px, calc(48px - (9px + 3px)) );
 		}
-		.menu-icon.active > div:nth-child(1) {
+		.o-panel-menu-icon.active > div:nth-child(1) {
 			transform:
 				rotate(45deg)
 				translate(17px, 13px);
 		}
-		.menu-icon.active > div:nth-child(2) {
+		.o-panel-menu-icon.active > div:nth-child(2) {
 			transform:
 				rotate(45deg)
 				translate(17px, 13px);
 		}
-		.menu-icon.active > div:nth-child(3) {
+		.o-panel-menu-icon.active > div:nth-child(3) {
 			transform:
 				rotate(-45deg)
 				translate(-13px, 17px);
@@ -251,19 +284,6 @@ export default {
 		.tray-container.active {
 			transform: translate(0, 0);
 		}
-        .tray-icon {
-			margin: 3px;
-			width: 48px;
-			height: 48px;
-			padding: 9px;
-			cursor: pointer;
-            border-radius: 3px;
-            box-sizing: border-box;
-			transition: background-color var(--o-panel-transition);
-		}
-		.tray-icon > svg {
-			fill: var(--o-panel-icon);
-		}
         [slot="menu-body"],
 		.tray-body {
             width: 30vw;
@@ -282,6 +302,9 @@ export default {
 			flex: 0 1 auto;
 			flex-direction: column;
         }
+		.o-panel-clear {
+
+		}
         .o-panel-item {
             all: unset;
 			display: flex;
@@ -298,6 +321,7 @@ export default {
 			background-color: var(--o-panel-item-active);
 		}
         .o-panel-notification {
+			position: relative;
             display: flex;
             flex: 0 0 auto;
 			cursor: pointer;
@@ -326,12 +350,26 @@ export default {
 			padding: 1rem 0;
 			max-height: 300px;
 		}
+		.o-panel-notification-close {
+			height: 0;
+			opacity: 0;
+			right: 3px;
+		    bottom: 3px;
+			position: absolute;
+		}
+		.o-panel-notification:hover .o-panel-notification-close {
+			opacity: 1;
+			height: 48px;
+		}
+		.o-panel-notification:hover .o-panel-notification-close:hover {
+		    background-color: var(--o-panel-icon-hover);
+		}
 	`,
 	template: `
         <div class="o-panel-background"></div>
 
 		<div class="bar-container">
-			<div class="o-panel-icon menu-icon">
+			<div class="o-panel-menu-icon o-panel-icon">
 				<div></div>
 				<div></div>
 				<div></div>
@@ -339,9 +377,9 @@ export default {
 			<div class="bar-title">
                 <div o-text="title"></div>
             </div>
-			<div class="o-panel-icon tray-icon">
-				<svg viewBox="0 0 24 24">
-				    <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+			<div class="o-panel-tray-icon o-panel-icon">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+					<path d="M24 44c2.21 0 4-1.79 4-4h-8c0 2.21 1.79 4 4 4zm12-12V22c0-6.15-3.27-11.28-9-12.64V8c0-1.66-1.34-3-3-3s-3 1.34-3 3v1.36c-5.73 1.36-9 6.49-9 12.64v10l-4 4v2h32v-2l-4-4z"/>
 				</svg>
 			</div>
 		</div>
@@ -354,7 +392,11 @@ export default {
 		<div class="tray-container">
 			<div class="tray-body"></div>
 			<div class="tray-foot">
-				<button class="o-panel-item o-tray-clear">Clear</button>
+				<div class="o-panel-clear-icon o-panel-icon">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+						<path d="M10 26h28v-4H10v4zm-4 8h28v-4H6v4zm8-20v4h28v-4H14z"/>
+					</svg>
+				</div>
 			</div>
 		</div>
 	`
