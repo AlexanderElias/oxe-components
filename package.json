@@ -20,6 +20,6 @@
 	},
 	"homepage": "https://github.com/AlexanderElias/oxe-components#readme",
 	"devDependencies": {
-		"oxe": "^3.12.0"
+		"oxe": "^3.18.0"
 	}
 }
