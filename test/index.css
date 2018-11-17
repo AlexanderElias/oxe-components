@@ -25,7 +25,7 @@
 	--o-modal-background: rgba(0, 0, 0, 0.3);
 
 	--o-toast-widget: #999;
-	--o-toast-transition: 150ms ease;
+	--o-toast-transition: 600ms ease;
 	--o-toast-shadow: rgba(0, 0, 0, 0.1);
 
 }
