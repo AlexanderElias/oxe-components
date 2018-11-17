@@ -135,6 +135,9 @@ export default {
 
         var routed = function () {
 			self.model.title = Oxe.location.route.title;
+			// if (self.model.hides.includes(Oxe.location.pathname)) {
+			// } else {
+			// }
 		};
 
 		Oxe.router.on('routed', routed);
@@ -399,5 +402,6 @@ export default {
 				</div>
 			</div>
 		</div>
+
 	`
 };
