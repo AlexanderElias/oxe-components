@@ -1,9 +1,6 @@
 
 export default {
 	name: 'o-toast',
-	model: {
-		remove: true
-	},
 	properties: {
 		time: {
 			enumerable: true,
@@ -73,9 +70,6 @@ export default {
 
 			}
 		}
-	},
-	created: function () {
-		// this.eToast = this.querySelector('.o-toast');
 	},
 	style: `
 		:host {
