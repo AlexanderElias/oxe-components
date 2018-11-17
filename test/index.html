@@ -41,11 +41,6 @@
 		var toast = document.createElement('o-toast');
 		document.body.appendChild(toast);
 
-		toast.show({
-			title: 'Hello',
-			message: 'World'
-		});
-
         // panel
         var panel = document.querySelector('o-panel');
         panel.model.title = 'Title';
@@ -54,6 +49,13 @@
             message: 'message',
             details: 'details'
         });
+
+		for (var i = 0; i < 3; i++) {
+			toast.open({
+				title: i,
+				message: 'hello world'
+			});
+		}
 
 	</script>
 
