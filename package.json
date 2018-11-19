@@ -4,7 +4,7 @@
 	"description": "A library for Oxe Components",
 	"main": "index.js",
 	"scripts": {
-		"t": "muleify -s test",
+		"t": "muleify -sw test",
 		"w": "muleify -pw src test/lib",
 		"b": "rm -r dst/* && muleify -ptm src dst",
 		"co": "cp node_modules/oxe/dst/oxe.min.js test/."
