@@ -3,60 +3,11 @@
 <head>
 	<title>Test</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script src="./oxe.min.js"></script>
+	<script src="./oxe.min.js" defer></script>
+	<script src="./index.js" type="module" defer></script>
 	<link rel="stylesheet" href="./index.css" />
 </head>
 <body>
-
-	<script type="module">
-		import oToast from './lib/o-toast.js';
-		import oModal from './lib/o-modal.js';
-		import oPanel from './lib/o-panel.js';
-
-		Oxe.setup({
-			component: {
-				components: [
-					oPanel,
-					oModal,
-					oToast
-				]
-			}
-		});
-
-		var t = 1;
-		var m = 1;
-        var panel = document.querySelector('o-panel');
-		var toast = document.createElement('o-toast');
-		var modal = document.createElement('o-modal');
-
-		document.body.appendChild(modal);
-		document.body.appendChild(toast);
-    	panel.model.title = 'Title';
-
-		// panel.notify({
-        //     title: 'title',
-        //     message: 'message',
-        //     details: 'details'
-        // });
-
-		window.toast = function () {
-			toast.open({
-				title: t++,
-				message: 'message'
-			});
-		};
-
-		window.modal = function () {
-			modal.open({
-				title: m++,
-				message: 'message',
-				cancel: function () {
-					modal.close();
-				}
-			});
-		};
-
-	</script>
 
 	<o-panel>
 		<div slot="menu-body">
