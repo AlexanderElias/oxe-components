@@ -287,7 +287,7 @@ export default {
 		.o-panel-tray-container.active {
 			transform: translate(0, 0);
 		}
-        [slot="o-panel-menu-body"],
+        [slot="menu-body"],
 		.o-panel-tray-body {
             width: 30vw;
             display: flex;
@@ -299,15 +299,12 @@ export default {
 			justify-content: flex-start;
 		    max-height: calc(100% - 1rem + 1.8rem);
 		}
-        [slot="o-panel-menu-foot"],
+        [slot="menu-foot"],
 		.o-panel-tray-foot {
             display: flex;
 			flex: 0 1 auto;
 			flex-direction: column;
         }
-		.o-panel-clear {
-
-		}
         .o-panel-item {
             all: unset;
 			display: flex;
@@ -388,8 +385,8 @@ export default {
 		</div>
 
 		<div class="o-panel-menu-container">
-			<slot name="o-panel-menu-body"></slot>
-			<slot name="o-panel-menu-foot"></slot>
+			<slot name="menu-body"></slot>
+			<slot name="menu-foot"></slot>
 		</div>
 
 		<div class="o-panel-tray-container">
