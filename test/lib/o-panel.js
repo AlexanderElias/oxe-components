@@ -123,7 +123,6 @@ export default {
 		self.element.trayClear = self.querySelector('.o-panel-tray-clear-icon');
 		self.element.trayContainer = self.querySelector('.o-panel-tray-container');
 
-
         var toggle = function (icon, container) {
             var flag = icon.classList.toggle('active');
 			container.classList.toggle('active');
