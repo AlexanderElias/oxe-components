@@ -23,39 +23,38 @@
 			}
 		});
 
-        // modal
+		var t = 1;
+		var m = 1;
+        var panel = document.querySelector('o-panel');
+		var toast = document.createElement('o-toast');
 		var modal = document.createElement('o-modal');
-		document.body.appendChild(modal);
 
-		setTimeout(function () {
+		document.body.appendChild(modal);
+		document.body.appendChild(toast);
+    	panel.model.title = 'Title';
+
+		// panel.notify({
+        //     title: 'title',
+        //     message: 'message',
+        //     details: 'details'
+        // });
+
+		window.toast = function () {
+			toast.open({
+				title: t++,
+				message: 'message'
+			});
+		};
+
+		window.modal = function () {
 			modal.open({
-				title: 'One Title',
-				message: 'One Message',
+				title: m++,
+				message: 'message',
 				cancel: function () {
 					modal.close();
 				}
 			});
-		}, 1000);
-
-        // toast
-		var toast = document.createElement('o-toast');
-		document.body.appendChild(toast);
-
-        // panel
-        var panel = document.querySelector('o-panel');
-        panel.model.title = 'Title';
-        panel.notify({
-            title: 'title',
-            message: 'message',
-            details: 'details'
-        });
-
-		for (var i = 0; i < 3; i++) {
-			toast.open({
-				title: i,
-				message: 'hello world'
-			});
-		}
+		};
 
 	</script>
 
@@ -68,6 +67,15 @@
 			<a class="o-panel-item">Sign Out</a>
 		</div>
 	</o-panel>
+
+	<br>
+	<br>
+	<br>
+	<button onclick="toast()">Add Toast</button>
+	<br>
+	<br>
+	<br>
+	<button onclick="modal()">Add Modal</button>
 
 </body>
 </html>

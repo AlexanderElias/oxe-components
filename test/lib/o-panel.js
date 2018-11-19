@@ -112,16 +112,13 @@ export default {
 		var self = this;
 
         self.element = {};
-
         self.element.background = self.querySelector('.o-panel-background');
-
 		self.element.menuIcon = self.querySelector('.o-panel-menu-icon');
 		self.element.menuContainer = self.querySelector('.o-panel-menu-container');
-
 		self.element.trayIcon = self.querySelector('.o-panel-tray-icon');
 		self.element.trayBody = self.querySelector('.o-panel-tray-body');
-		self.element.trayClear = self.querySelector('.o-panel-tray-clear-icon');
 		self.element.trayContainer = self.querySelector('.o-panel-tray-container');
+		self.element.clear = self.querySelector('.o-panel-clear-icon');
 
         var toggle = function (icon, container) {
             var flag = icon.classList.toggle('active');
@@ -146,7 +143,7 @@ export default {
 		Oxe.router.on('routed', routed);
 		self.element.menuIcon.addEventListener('click', toggle.bind(self, self.element.menuIcon, self.element.menuContainer));
 		self.element.trayIcon.addEventListener('click', toggle.bind(self, self.element.trayIcon, self.element.trayContainer));
-		self.element.trayClear.addEventListener('click', self.clear.bind(self));
+		self.element.clear.addEventListener('click', self.clear.bind(self));
 		self.element.background.addEventListener('click', self.close.bind(self));
         window.addEventListener('keydown', self.close.bind(self));
 
@@ -308,6 +305,9 @@ export default {
 			flex: 0 1 auto;
 			flex-direction: column;
         }
+		.o-panel-clear {
+
+		}
         .o-panel-item {
             all: unset;
 			display: flex;
@@ -395,7 +395,7 @@ export default {
 		<div class="o-panel-tray-container">
 			<div class="o-panel-tray-body"></div>
 			<div class="o-panel-tray-foot">
-				<div class="o-panel-tray-clear-icon o-panel-icon">
+				<div class="o-panel-clear-icon o-panel-icon">
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
 						<path d="M10 26h28v-4H10v4zm-4 8h28v-4H6v4zm8-20v4h28v-4H14z"/>
 					</svg>
