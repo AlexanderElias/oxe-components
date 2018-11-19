@@ -112,13 +112,17 @@ export default {
 		var self = this;
 
         self.element = {};
+
         self.element.background = self.querySelector('.o-panel-background');
+
 		self.element.menuIcon = self.querySelector('.o-panel-menu-icon');
-		self.element.menuContainer = self.querySelector('.menu-container');
+		self.element.menuContainer = self.querySelector('.o-panel-menu-container');
+
 		self.element.trayIcon = self.querySelector('.o-panel-tray-icon');
-		self.element.trayBody = self.querySelector('.tray-body');
-		self.element.trayContainer = self.querySelector('.tray-container');
-		self.element.clear = self.querySelector('.o-panel-clear-icon');
+		self.element.trayBody = self.querySelector('.o-panel-tray-body');
+		self.element.trayClear = self.querySelector('.o-panel-tray-clear-icon');
+		self.element.trayContainer = self.querySelector('.o-panel-tray-container');
+
 
         var toggle = function (icon, container) {
             var flag = icon.classList.toggle('active');
@@ -135,12 +139,15 @@ export default {
 
         var routed = function () {
 			self.model.title = Oxe.location.route.title;
+			// if (self.model.hides.includes(Oxe.location.pathname)) {
+			// } else {
+			// }
 		};
 
 		Oxe.router.on('routed', routed);
 		self.element.menuIcon.addEventListener('click', toggle.bind(self, self.element.menuIcon, self.element.menuContainer));
 		self.element.trayIcon.addEventListener('click', toggle.bind(self, self.element.trayIcon, self.element.trayContainer));
-		self.element.clear.addEventListener('click', self.clear.bind(self));
+		self.element.trayClear.addEventListener('click', self.clear.bind(self));
 		self.element.background.addEventListener('click', self.close.bind(self));
         window.addEventListener('keydown', self.close.bind(self));
 
@@ -190,7 +197,7 @@ export default {
 		.o-panel-icon > svg > path {
 			fill: var(--o-panel-icon);
 		}
-		.bar-container {
+		.o-panel-bar-container {
 			top: 0;
 			left: 0;
 			z-index: 2;
@@ -203,14 +210,14 @@ export default {
 			box-shadow: 0 3px 6px var(--o-panel-shadow);
 			background-color: var(--o-panel-bar-background);
 		}
-		.bar-title {
+		.o-panel-bar-title {
 			flex: 1 1;
 			margin: 0 1rem;
 			font-size: 2.3rem;
 			text-align: center;
 			text-transform: capitalize;
 		}
-        .menu-container {
+        .o-panel-menu-container {
 			top: 0;
 			left: 0;
 			z-index: 1;
@@ -226,7 +233,7 @@ export default {
 			transition: transform var(--o-panel-transition);
 			background-color: var(--o-panel-menu-background);
 		}
-		.menu-container.active {
+		.o-panel-menu-container.active {
 			transform: translate(0, 0);
 		}
 		.o-panel-menu-icon {
@@ -265,7 +272,7 @@ export default {
 				rotate(-45deg)
 				translate(-13px, 17px);
 		}
-		.tray-container {
+		.o-panel-tray-container {
 			top: 0;
 			right: 0;
 			z-index: 1;
@@ -281,11 +288,11 @@ export default {
 			transition: transform var(--o-panel-transition);
 			background-color: var(--o-panel-tray-background);
 		}
-		.tray-container.active {
+		.o-panel-tray-container.active {
 			transform: translate(0, 0);
 		}
-        [slot="menu-body"],
-		.tray-body {
+        [slot="o-panel-menu-body"],
+		.o-panel-tray-body {
             width: 30vw;
             display: flex;
             flex: 1 1 auto;
@@ -296,15 +303,12 @@ export default {
 			justify-content: flex-start;
 		    max-height: calc(100% - 1rem + 1.8rem);
 		}
-        [slot="menu-foot"],
-		.tray-foot {
+        [slot="o-panel-menu-foot"],
+		.o-panel-tray-foot {
             display: flex;
 			flex: 0 1 auto;
 			flex-direction: column;
         }
-		.o-panel-clear {
-
-		}
         .o-panel-item {
             all: unset;
 			display: flex;
@@ -368,13 +372,13 @@ export default {
 	template: `
         <div class="o-panel-background"></div>
 
-		<div class="bar-container">
+		<div class="o-panel-bar-container">
 			<div class="o-panel-menu-icon o-panel-icon">
 				<div></div>
 				<div></div>
 				<div></div>
 			</div>
-			<div class="bar-title">
+			<div class="o-panel-bar-title">
                 <div o-text="title"></div>
             </div>
 			<div class="o-panel-tray-icon o-panel-icon">
@@ -384,20 +388,21 @@ export default {
 			</div>
 		</div>
 
-		<div class="menu-container">
-			<slot name="menu-body"></slot>
-			<slot name="menu-foot"></slot>
+		<div class="o-panel-menu-container">
+			<slot name="o-panel-menu-body"></slot>
+			<slot name="o-panel-menu-foot"></slot>
 		</div>
 
-		<div class="tray-container">
-			<div class="tray-body"></div>
-			<div class="tray-foot">
-				<div class="o-panel-clear-icon o-panel-icon">
+		<div class="o-panel-tray-container">
+			<div class="o-panel-tray-body"></div>
+			<div class="o-panel-tray-foot">
+				<div class="o-panel-tray-clear-icon o-panel-icon">
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
 						<path d="M10 26h28v-4H10v4zm-4 8h28v-4H6v4zm8-20v4h28v-4H14z"/>
 					</svg>
 				</div>
 			</div>
 		</div>
+
 	`
 };
