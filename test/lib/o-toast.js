@@ -84,14 +84,12 @@ export default {
 			height: calc(100vh - 55px);
 			flex-direction: column-reverse;
 		}
-		:host > .o-toast {
-			margin: 3px;
-		}
 		:host.active {
 			z-index: 2;
 		}
 		.o-toast {
             width: 30vw;
+			margin: 3px;
 			padding: 1rem;
             min-width: 150px;
             max-width: 300px;
