@@ -39,13 +39,18 @@ import oPanel from './lib/o-panel.js';
 		modal.open({
 			title: m++,
 			message: 'message',
-			cancel: function () {
-				modal.close();
-			}
+			actions: [
+				{
+					title: 'close',
+					method: function () {
+						this.close();
+					}
+				}
+			]
 		});
 	};
 
-	document.body.appendChild(modal);
-	document.body.appendChild(toast);
+	document.body.insertBefore(toast, document.body.firstChildElement);
+	document.body.insertBefore(modal, document.body.firstChildElement);
 
 }()).catch(console.error);
