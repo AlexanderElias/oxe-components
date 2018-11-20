@@ -57,21 +57,20 @@ export default {
 		this.eConfirm = this.querySelector('.o-modal-action[o-on-click="confirm"]');
 	},
 	style: `
-		o-modal {
+		:host {
 			top: 0;
 			left: 0;
 			opacity: 0;
-			z-index: -1;
 			width: 100%;
     		height: 100%;
 			display: flex;
+			z-index: -1000;
 			position: fixed;
 			align-items: center;
 			justify-content: center;
 			background-color: var(--o-modal-background);
 		}
-		o-modal.active {
-			z-index: 4;
+		:host.active {
 			opacity: 1;
 		}
 		.active .o-modal-body {
