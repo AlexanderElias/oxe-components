@@ -364,6 +364,7 @@ export default {
 		}
 	`,
 	template: `
+	
         <div class="o-panel-background"></div>
 
 		<div class="o-panel-menu-container">
