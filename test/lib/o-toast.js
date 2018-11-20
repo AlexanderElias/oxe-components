@@ -16,7 +16,6 @@ export default {
 			enumerable: true,
 			value: function (data) {
 				var self = this;
-
 				var toast = document.createElement('div');
 				var title = document.createElement('div');
 				var message = document.createElement('div');
@@ -46,26 +45,28 @@ export default {
 					toast.style.setProperty('background-color', `var(--o-toast-${type})`);
 				}
 
-				toast.addEventListener('transitionend', function () {
-					setTimeout(function () {
-
-						toast.addEventListener('transitionend', function () {
-							self.classList.remove('active');
-							self.removeChild(toast);
-						});
-
-						window.requestAnimationFrame(function () {
-							toast.classList.remove('active');
-						});
-
-					}, self.time);
-				});
-
 				self.appendChild(toast);
 				self.classList.add('active');
 
+				var e = toast.addEventListener('transitionend', function () {
+					setTimeout(function () {
+
+						var e = toast.addEventListener('transitionend', function () {
+							self.removeChild(toast);
+							self.classList.remove('active');
+							toast.removeEventListener('transitionend', e);
+						});
+
+						toast.classList.remove('active');
+					}, self.time);
+
+					toast.removeEventListener('transitionend', e);
+				});
+
 				window.requestAnimationFrame(function () {
-					toast.classList.add('active');
+					window.requestAnimationFrame(function () {
+						toast.classList.add('active');
+					});
 				});
 
 			}
@@ -80,10 +81,8 @@ export default {
 			flex: 1 1 100%;
 			position: fixed;
 			padding-top: 55px;
-			flex-direction: column;
-			justify-items: flex-end;
-			justify-content: flex-end;
 			height: calc(100vh - 55px);
+			flex-direction: column-reverse;
 		}
 		:host > .o-toast {
 			margin: 3px;
@@ -112,6 +111,5 @@ export default {
 		.o-toast.active {
 			transform: translateX(0);
 		}
-	`,
-	template: ``
+	`
 };
