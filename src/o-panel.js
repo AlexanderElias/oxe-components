@@ -152,6 +152,7 @@ export default {
 	},
 	style: `
         :host {
+			z-index: 1;
             width: 100%;
             height: 55px;
             display: block;

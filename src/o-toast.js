@@ -76,12 +76,13 @@ export default {
 		:host {
 			top: 0;
 			right: 0;
+			z-index: 2;
+			height: 100vh;
 			display: flex;
 			flex: 1 1 100%;
 			position: fixed;
 			padding-top: 55px;
 			pointer-events: none;
-			height: calc(100vh - 55px);
 			flex-direction: column-reverse;
             transition: all var(--o-toast-transition);
 		}
