@@ -21,6 +21,7 @@
 	--o-panel-background: rgba(0, 0, 0, 0.1);
 
 	--o-modal-widget: #999;
+	--o-modal-transition: 600ms ease;
 	--o-modal-shadow: rgba(0, 0, 0, 0.3);
 	--o-modal-background: rgba(0, 0, 0, 0.3);
 

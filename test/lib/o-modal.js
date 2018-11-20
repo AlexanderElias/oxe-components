@@ -1,90 +1,84 @@
 
 export default {
 	name: 'o-modal',
-	methods: {
-		cancel: function () {
-			if (this.model.cancel && typeof this.model.cancel === 'function') {
-				this.model.cancel();
-			}
-		},
-		confirm: function () {
-			if (this.model.confirm && typeof this.model.confirm === 'function') {
-				this.model.confirm();
-			}
-		}
-	},
-	model: {
-		title: '',
-		message: '',
-		cancel: null,
-		confirm: null,
-	},
 	properties: {
 		open: {
 			enumerable: true,
 			value: function (data) {
-				this.model.cancel = data.cancel;
-				this.model.confirm = data.confirm;
-				this.model.title = data.title || '';
-				this.model.message = data.message || '';
+				var self = this;
+				var body = document.createElement('div');
+				var title = document.createElement('div');
+				var message = document.createElement('div');
+				var actions = document.createElement('div');
 
-				if (data.cancel) {
-					this.eCancel.classList.add('active');
+				body.setAttribute('class', 'o-modal-body');
+				title.setAttribute('class', 'o-modal-title');
+				message.setAttribute('class', 'o-modal-message');
+				actions.setAttribute('class', 'o-modal-actions');
+
+				body.appendChild(title);
+				body.appendChild(message);
+				body.appendChild(actions);
+
+				title.innerText = data.title || '';
+				message.innerText = data.message || '';
+
+				if (data.actions) {
+
+					var actionContext = {
+						close: function () {
+							self.removeChild(body);
+							if (self.children.length > 1) return;
+							self.classList.remove('active');
+						}
+					};
+
+					for (var i = 0, l = data.actions.length; i < l; i++) {
+						var actionData = data.actions[i];
+						if (typeof actionData !== 'object') throw new Error('Oxe - Modal invalid action type');
+						if (!actionData.title) throw new Error('Oxe - Modal action title required');
+						if (!actionData.method) throw new Error('Oxe - Modal action method required');
+						var actionElement = document.createElement('button');
+						actionElement.className = 'o-modal-action';
+						actionElement.innerText = actionData.title;
+						actionElement.onclick = actionData.method.bind(actionContext);
+						actions.appendChild(actionElement);
+					}
+
 				}
 
-				if (data.confirm) {
-					this.eConfirm.classList.add('active');
-				}
-
+				this.appendChild(body);
 				this.classList.add('active');
-			}
-		},
-		close: {
-			enumerable: true,
-			value: function () {
-				this.model.title = '';
-				this.model.message = '';
-				this.model.cancel = null;
-				this.model.confirm = null;
-				this.classList.remove('active');
-				this.eCancel.classList.remove('active');
-				this.eConfirm.classList.remove('active');
 			}
 		}
 	},
-	created: function () {
-		this.eCancel = this.querySelector('.o-modal-action[o-on-click="cancel"]');
-		this.eConfirm = this.querySelector('.o-modal-action[o-on-click="confirm"]');
-	},
 	style: `
-		o-modal {
+		:host {
 			top: 0;
 			left: 0;
 			opacity: 0;
-			z-index: -1;
 			width: 100%;
     		height: 100%;
-			display: flex;
 			position: fixed;
-			align-items: center;
-			justify-content: center;
+			pointer-events: none;
 			background-color: var(--o-modal-background);
+			transition: opacity var(--o-modal-transition);
 		}
-		o-modal.active {
-			z-index: 4;
+		:host.active {
 			opacity: 1;
-		}
-		.active .o-modal-body {
-			transform: translate(0, 0);
+			z-index: 1000;
+			pointer-events: initial;
 		}
 		.o-modal-body {
+			top: 50%;
+			left: 50%;
             width: 30vw;
 			padding: 1rem;
-            flex: 1 1 auto;
             margin: 0.6rem;
             max-width: 600px;
+			position: absolute;
             border-radius: 3px;
-			transform: translate(50%, 50%);
+			transform: translate(-50%, -50%);
 			background-color: var(--o-modal-widget);
 			box-shadow: 0 3px 6px var(--o-modal-shadow);
 		}
@@ -104,24 +98,9 @@ export default {
 		.o-modal-actions {
 			padding: 1rem 0;
 		    display: flex;
-		    align-items: center;
-		    justify-content: right;
+			flex-warp: wrap;
+		    flex-direction: row;
+		    justify-content: flex-end;
 		}
-		.o-modal-action {
-			display: none;
-		}
-		.o-modal-action.active {
-			display: block;
-		}
-	`,
-	template: `
-		<div class="o-modal-body">
-			<div class="o-modal-title" o-text="title"></div>
-			<div class="o-modal-message" o-text="message"></div>
-			<div class="o-modal-actions">
-				<button class="o-modal-action" o-on-click="cancel">Cancel</button>
-				<button class="o-modal-action" o-on-click="confirm">Confirm</button>
-			</div>
-		</div>
 	`
 };

@@ -151,25 +151,26 @@ export default {
 		self.hidden = false;
 	},
 	style: `
-        o-panel {
+        :host {
             width: 100%;
             height: 55px;
             display: block;
+			position: relative;
         }
         .o-panel-background {
 			top: 0;
 			left: 0;
             opacity: 0;
-            z-index: -1;
 			width: 100%;
 			height: 100%;
 			position: fixed;
+			pointer-events: none;
             background-color: var(--o-panel-background);
 		    transition: opacity var(--o-panel-transition);
 		}
         .o-panel-background.active {
             opacity: 1;
-            z-index: 0;
+			pointer-events: initial;
         }
 		.o-panel-icon {
 			margin: 3px;
@@ -196,7 +197,6 @@ export default {
 		.o-panel-bar-container {
 			top: 0;
 			left: 0;
-			z-index: 2;
 			width: 100%;
             height: 55px;
 			display: flex;
@@ -216,7 +216,6 @@ export default {
         .o-panel-menu-container {
 			top: 0;
 			left: 0;
-			z-index: 1;
 			height: 100vh;
 			display: flex;
 			position: fixed;
@@ -271,7 +270,6 @@ export default {
 		.o-panel-tray-container {
 			top: 0;
 			right: 0;
-			z-index: 1;
 			height: 100vh;
 			display: flex;
 			position: fixed;
@@ -366,23 +364,8 @@ export default {
 		}
 	`,
 	template: `
-        <div class="o-panel-background"></div>
 
-		<div class="o-panel-bar-container">
-			<div class="o-panel-menu-icon o-panel-icon">
-				<div></div>
-				<div></div>
-				<div></div>
-			</div>
-			<div class="o-panel-bar-title">
-                <div o-text="title"></div>
-            </div>
-			<div class="o-panel-tray-icon o-panel-icon">
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-					<path d="M24 44c2.21 0 4-1.79 4-4h-8c0 2.21 1.79 4 4 4zm12-12V22c0-6.15-3.27-11.28-9-12.64V8c0-1.66-1.34-3-3-3s-3 1.34-3 3v1.36c-5.73 1.36-9 6.49-9 12.64v10l-4 4v2h32v-2l-4-4z"/>
-				</svg>
-			</div>
-		</div>
+        <div class="o-panel-background"></div>
 
 		<div class="o-panel-menu-container">
 			<slot name="menu-body"></slot>
@@ -397,6 +380,22 @@ export default {
 						<path d="M10 26h28v-4H10v4zm-4 8h28v-4H6v4zm8-20v4h28v-4H14z"/>
 					</svg>
 				</div>
+			</div>
+		</div>
+
+		<div class="o-panel-bar-container">
+			<div class="o-panel-menu-icon o-panel-icon">
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+			<div class="o-panel-bar-title">
+                <div o-text="title"></div>
+            </div>
+			<div class="o-panel-tray-icon o-panel-icon">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+					<path d="M24 44c2.21 0 4-1.79 4-4h-8c0 2.21 1.79 4 4 4zm12-12V22c0-6.15-3.27-11.28-9-12.64V8c0-1.66-1.34-3-3-3s-3 1.34-3 3v1.36c-5.73 1.36-9 6.49-9 12.64v10l-4 4v2h32v-2l-4-4z"/>
+				</svg>
 			</div>
 		</div>
 

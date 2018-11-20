@@ -161,16 +161,16 @@ export default {
 			top: 0;
 			left: 0;
             opacity: 0;
-            z-index: -1;
 			width: 100%;
 			height: 100%;
 			position: fixed;
+			pointer-events: none;
             background-color: var(--o-panel-background);
 		    transition: opacity var(--o-panel-transition);
 		}
         .o-panel-background.active {
             opacity: 1;
-            z-index: 0;
+			pointer-events: initial;
         }
 		.o-panel-icon {
 			margin: 3px;
@@ -364,7 +364,7 @@ export default {
 		}
 	`,
 	template: `
-	
+
         <div class="o-panel-background"></div>
 
 		<div class="o-panel-menu-container">
