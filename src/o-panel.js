@@ -320,11 +320,12 @@ export default {
 			background-color: var(--o-panel-item-active);
 		}
         .o-panel-notification {
-			position: relative;
             display: flex;
             flex: 0 0 auto;
 			cursor: pointer;
 			text-align: left;
+			overflow: hidden;
+			position: relative;
 			padding: 0.9rem 1.3rem;
 			flex-direction: column;
             align-items: flex-start;
