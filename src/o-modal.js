@@ -88,6 +88,7 @@ export default {
 			width: 30vw;
 			padding: 1rem;
 			margin: 0.6rem;
+			min-width: 300px;
 			max-width: 600px;
 			position: absolute;
 			border-radius: 3px;
