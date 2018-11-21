@@ -9,6 +9,7 @@ export default {
 		open: {
 			enumerable: true,
 			value: function (data) {
+				var self = this;
 				var body = document.createElement('div');
 				var title = document.createElement('div');
 				var message = document.createElement('div');
@@ -45,8 +46,8 @@ export default {
 
 						var actionElement = document.createElement('button');
 
-						if (this.options.action && this.options.action.classes) {
-							actionElement.className = 'o-modal-action ' + this.options.action.classes.join(' ');
+						if (self.options.action && self.options.action.class) {
+							actionElement.className = 'o-modal-action ' + self.options.action.class;
 						} else {
 							actionElement.className = 'o-modal-action';
 						}
@@ -58,8 +59,8 @@ export default {
 
 				}
 
-				this.appendChild(body);
-				this.classList.add('active');
+				self.appendChild(body);
+				self.classList.add('active');
 			}
 		}
 	},
