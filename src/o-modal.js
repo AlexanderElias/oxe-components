@@ -97,11 +97,14 @@ export default {
 			color: currentColor;
 		}
 		.o-modal-actions {
-			padding: 1rem 0;
 		    display: flex;
 			flex-warp: wrap;
+			padding: 1rem 0;
 		    flex-direction: row;
 		    justify-content: flex-end;
+		}
+		.o-modal-action {
+			margin: 0.3rem;
 		}
 	`
 };
