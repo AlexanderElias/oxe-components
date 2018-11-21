@@ -1,6 +1,6 @@
 /*
 	Name: oxe-components
-	Version: 1.8.0
+	Version: 1.9.0
 	License: MPL-2.0
 	Author: Alexander Elias
 	Email: undefined
@@ -12,10 +12,13 @@
 export default {
 	name: 'o-modal',
 	properties: {
+		options: {
+			enumerable: true,
+			value: {}
+		},
 		open: {
 			enumerable: true,
 			value: function (data) {
-				var self = this;
 				var body = document.createElement('div');
 				var title = document.createElement('div');
 				var message = document.createElement('div');
@@ -45,11 +48,19 @@ export default {
 
 					for (var i = 0, l = data.actions.length; i < l; i++) {
 						var actionData = data.actions[i];
+
 						if (typeof actionData !== 'object') throw new Error('Oxe - Modal invalid action type');
 						if (!actionData.title) throw new Error('Oxe - Modal action title required');
 						if (!actionData.method) throw new Error('Oxe - Modal action method required');
+
 						var actionElement = document.createElement('button');
-						actionElement.className = 'o-modal-action';
+
+						if (this.options.action && this.options.action.classes) {
+							actionElement.className = 'o-modal-action ' + this.options.action.classes.join(' ');
+						} else {
+							actionElement.className = 'o-modal-action';
+						}
+
 						actionElement.innerText = actionData.title;
 						actionElement.onclick = actionData.method.bind(actionContext);
 						actions.appendChild(actionElement);
