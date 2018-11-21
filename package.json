@@ -1,12 +1,12 @@
 {
 	"name": "oxe-components",
-	"version": "1.7.2",
+	"version": "1.8.0",
 	"description": "A library for Oxe Components",
 	"main": "index.js",
 	"scripts": {
+		"b": "node build.js",
 		"t": "muleify -sw test",
 		"w": "muleify -pw src test/lib",
-		"b": "rm -r dst/* && muleify -ptm src dst",
 		"co": "cp node_modules/oxe/dst/oxe.min.js test/."
 	},
 	"repository": {

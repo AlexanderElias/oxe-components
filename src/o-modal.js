@@ -59,7 +59,7 @@ export default {
 			z-index: 3;
 			opacity: 0;
 			width: 100%;
-    		height: 100%;
+			height: 100%;
 			position: fixed;
 			pointer-events: none;
 			background-color: var(--o-modal-background);
@@ -73,12 +73,12 @@ export default {
 		.o-modal-body {
 			top: 50%;
 			left: 50%;
-            width: 30vw;
+			width: 30vw;
 			padding: 1rem;
-            margin: 0.6rem;
-            max-width: 600px;
+			margin: 0.6rem;
+			max-width: 600px;
 			position: absolute;
-            border-radius: 3px;
+			border-radius: 3px;
 			transform: translate(-50%, -50%);
 			background-color: var(--o-modal-widget);
 			box-shadow: 0 3px 6px var(--o-modal-shadow);
@@ -88,20 +88,20 @@ export default {
 			font-weight: 300;
 			font-size: 1.3rem;
 			color: currentColor;
-		    word-break: break-word;
-		    letter-spacing: 0.12rem;
-		    text-transform: capitalize;
+			word-break: break-word;
+			letter-spacing: 0.12rem;
+			text-transform: capitalize;
 		}
 		.o-modal-message {
 			padding: 1rem 0;
 			color: currentColor;
 		}
 		.o-modal-actions {
-		    display: flex;
+			display: flex;
 			flex-warp: wrap;
 			padding: 1rem 0;
-		    flex-direction: row;
-		    justify-content: flex-end;
+			flex-direction: row;
+			justify-content: flex-end;
 		}
 		.o-modal-action {
 			margin: 0.3rem;

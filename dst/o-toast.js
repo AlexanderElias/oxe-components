@@ -1,1 +1,122 @@
-export default{name:'o-toast',properties:{time:{enumerable:!0,configurable:!0,get:function(){return this._time||3e3},set:function(){return this._time=arguments[0]||3e3}},open:{enumerable:!0,value:function(a){var b=this,c=document.createElement('div'),d=document.createElement('div'),f=document.createElement('div');if(c.setAttribute('class','o-toast'),d.setAttribute('class','o-toast-title'),f.setAttribute('class','o-toast-message'),d.innerText=a.title||'',f.innerText=a.message||'',c.appendChild(d),c.appendChild(f),a.type||a.code){var g=a.code,h=a.type||a.code;'number'==typeof h&&(200<=g&&300>g||304==g?h='success':h='error'),c.style.setProperty('background-color','var(--o-toast-'+h+')')}b.appendChild(c),b.classList.add('active');var i=c.addEventListener('transitionend',function(){setTimeout(function(){var a=c.addEventListener('transitionend',function(){b.removeChild(c),b.classList.remove('active'),c.removeEventListener('transitionend',a)});c.classList.remove('active')},b.time),c.removeEventListener('transitionend',i)});window.requestAnimationFrame(function(){window.requestAnimationFrame(function(){c.classList.add('active')})})}}},style:'\n\t\t:host {\n\t\t\ttop: 0;\n\t\t\tright: 0;\n\t\t\tz-index: 2;\n\t\t\theight: 100vh;\n\t\t\tdisplay: flex;\n\t\t\tflex: 1 1 100%;\n\t\t\tposition: fixed;\n\t\t\tpadding-top: 55px;\n\t\t\tpointer-events: none;\n\t\t\tflex-direction: column-reverse;\n            transition: all var(--o-toast-transition);\n\t\t}\n\t\t.o-toast {\n            width: 30vw;\n\t\t\tmargin: 3px;\n\t\t\tpadding: 1rem;\n            min-width: 150px;\n            max-width: 300px;\n\t\t\tborder-radius: 3px;\n\t\t\ttransform: translateX(100%);\n\t\t\tbackground-color: var(--o-toast-widget);\n\t\t\tbox-shadow: 0 3px 6px var(--o-toast-shadow);\n            transition: transform var(--o-toast-transition);\n\t\t}\n\t\t.o-toast-title {\n\t\t\tfont-weight: bolder;\n\t\t\tcolor: var(--o-toast-color);\n\t\t}\n\t\t.o-toast-message {\n\t\t\tcolor: var(--o-toast-color);\n\t\t}\n\t\t.o-toast.active {\n\t\t\ttransform: translateX(0);\n\t\t}\n\t'};
+/*
+	Name: oxe-components
+	Version: 1.8.0
+	License: MPL-2.0
+	Author: Alexander Elias
+	Email: undefined
+	This Source Code Form is subject to the terms of the Mozilla Public
+	License, v. 2.0. If a copy of the MPL was not distributed with this
+	file, You can obtain one at http://mozilla.org/MPL/2.0/.
+*/
+
+export default {
+	name: 'o-toast',
+	properties: {
+		time: {
+			enumerable: true,
+			configurable: true,
+			get: function () {
+				return this._time || 3000;
+			},
+			set: function () {
+				return this._time = (arguments[0] || 3000);
+			}
+		},
+		open: {
+			enumerable: true,
+			value: function (data) {
+				var self = this;
+				var toast = document.createElement('div');
+				var title = document.createElement('div');
+				var message = document.createElement('div');
+
+				toast.setAttribute('class', 'o-toast');
+				title.setAttribute('class', 'o-toast-title');
+				message.setAttribute('class', 'o-toast-message');
+
+				title.innerText = data.title || '';
+				message.innerText = data.message || '';
+
+				toast.appendChild(title);
+				toast.appendChild(message);
+
+				if (data.type || data.code) {
+					var code = data.code;
+					var type = data.type || data.code;
+
+					if (typeof type === 'number') {
+						if (code >= 200 && code < 300 || code == 304) {
+							type = 'success';
+						} else {
+							type = 'error';
+						}
+					}
+
+					toast.style.setProperty('background-color', `var(--o-toast-${type})`);
+				}
+
+				self.appendChild(toast);
+				self.classList.add('active');
+
+				var e = toast.addEventListener('transitionend', function () {
+					setTimeout(function () {
+
+						var e = toast.addEventListener('transitionend', function () {
+							self.removeChild(toast);
+							self.classList.remove('active');
+							toast.removeEventListener('transitionend', e);
+						});
+
+						toast.classList.remove('active');
+					}, self.time);
+
+					toast.removeEventListener('transitionend', e);
+				});
+
+				window.requestAnimationFrame(function () {
+					window.requestAnimationFrame(function () {
+						toast.classList.add('active');
+					});
+				});
+
+			}
+		}
+	},
+	style: `
+		:host {
+			top: 0;
+			right: 0;
+			z-index: 2;
+			height: 100vh;
+			display: flex;
+			flex: 1 1 100%;
+			position: fixed;
+			padding-top: 55px;
+			pointer-events: none;
+			flex-direction: column-reverse;
+			transition: all var(--o-toast-transition);
+		}
+		.o-toast {
+			width: 30vw;
+			margin: 3px;
+			padding: 1rem;
+			min-width: 150px;
+			max-width: 300px;
+			border-radius: 3px;
+			transform: translateX(100%);
+			background-color: var(--o-toast-widget);
+			box-shadow: 0 3px 6px var(--o-toast-shadow);
+			transition: transform var(--o-toast-transition);
+		}
+		.o-toast-title {
+			font-weight: bolder;
+			color: var(--o-toast-color);
+		}
+		.o-toast-message {
+			color: var(--o-toast-color);
+		}
+		.o-toast.active {
+			transform: translateX(0);
+		}
+	`
+};

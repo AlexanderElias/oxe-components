@@ -84,19 +84,19 @@ export default {
 			padding-top: 55px;
 			pointer-events: none;
 			flex-direction: column-reverse;
-            transition: all var(--o-toast-transition);
+			transition: all var(--o-toast-transition);
 		}
 		.o-toast {
-            width: 30vw;
+			width: 30vw;
 			margin: 3px;
 			padding: 1rem;
-            min-width: 150px;
-            max-width: 300px;
+			min-width: 150px;
+			max-width: 300px;
 			border-radius: 3px;
 			transform: translateX(100%);
 			background-color: var(--o-toast-widget);
 			box-shadow: 0 3px 6px var(--o-toast-shadow);
-            transition: transform var(--o-toast-transition);
+			transition: transform var(--o-toast-transition);
 		}
 		.o-toast-title {
 			font-weight: bolder;

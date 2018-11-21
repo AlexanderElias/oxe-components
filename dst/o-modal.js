@@ -1,1 +1,120 @@
-var _typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(a){return typeof a}:function(a){return a&&"function"==typeof Symbol&&a.constructor===Symbol&&a!==Symbol.prototype?"symbol":typeof a};export default{name:"o-modal",properties:{open:{enumerable:!0,value:function(a){var b=this,c=document.createElement("div"),d=document.createElement("div"),e=document.createElement("div"),f=document.createElement("div");if(c.setAttribute("class","o-modal-body"),d.setAttribute("class","o-modal-title"),e.setAttribute("class","o-modal-message"),f.setAttribute("class","o-modal-actions"),c.appendChild(d),c.appendChild(e),c.appendChild(f),d.innerText=a.title||"",e.innerText=a.message||"",a.actions)for(var g,h={close:function(){b.removeChild(c),1<b.children.length||b.classList.remove("active")}},j=0,i=a.actions.length;j<i;j++){if(g=a.actions[j],"object"!==("undefined"==typeof g?"undefined":_typeof(g)))throw new Error("Oxe - Modal invalid action type");if(!g.title)throw new Error("Oxe - Modal action title required");if(!g.method)throw new Error("Oxe - Modal action method required");var k=document.createElement("button");k.className="o-modal-action",k.innerText=g.title,k.onclick=g.method.bind(h),f.appendChild(k)}this.appendChild(c),this.classList.add("active")}}},style:"\n\t\t:host {\n\t\t\ttop: 0;\n\t\t\tleft: 0;\n\t\t\tz-index: 3;\n\t\t\topacity: 0;\n\t\t\twidth: 100%;\n    \t\theight: 100%;\n\t\t\tposition: fixed;\n\t\t\tpointer-events: none;\n\t\t\tbackground-color: var(--o-modal-background);\n\t\t\ttransition: opacity var(--o-modal-transition);\n\t\t}\n\t\t:host.active {\n\t\t\topacity: 1;\n\t\t\tz-index: 1000;\n\t\t\tpointer-events: initial;\n\t\t}\n\t\t.o-modal-body {\n\t\t\ttop: 50%;\n\t\t\tleft: 50%;\n            width: 30vw;\n\t\t\tpadding: 1rem;\n            margin: 0.6rem;\n            max-width: 600px;\n\t\t\tposition: absolute;\n            border-radius: 3px;\n\t\t\ttransform: translate(-50%, -50%);\n\t\t\tbackground-color: var(--o-modal-widget);\n\t\t\tbox-shadow: 0 3px 6px var(--o-modal-shadow);\n\t\t}\n\t\t.o-modal-title {\n\t\t\tpadding: 1rem 0;\n\t\t\tfont-weight: 300;\n\t\t\tfont-size: 1.3rem;\n\t\t\tcolor: currentColor;\n\t\t    word-break: break-word;\n\t\t    letter-spacing: 0.12rem;\n\t\t    text-transform: capitalize;\n\t\t}\n\t\t.o-modal-message {\n\t\t\tpadding: 1rem 0;\n\t\t\tcolor: currentColor;\n\t\t}\n\t\t.o-modal-actions {\n\t\t    display: flex;\n\t\t\tflex-warp: wrap;\n\t\t\tpadding: 1rem 0;\n\t\t    flex-direction: row;\n\t\t    justify-content: flex-end;\n\t\t}\n\t\t.o-modal-action {\n\t\t\tmargin: 0.3rem;\n\t\t}\n\t"};
+/*
+	Name: oxe-components
+	Version: 1.8.0
+	License: MPL-2.0
+	Author: Alexander Elias
+	Email: undefined
+	This Source Code Form is subject to the terms of the Mozilla Public
+	License, v. 2.0. If a copy of the MPL was not distributed with this
+	file, You can obtain one at http://mozilla.org/MPL/2.0/.
+*/
+
+export default {
+	name: 'o-modal',
+	properties: {
+		open: {
+			enumerable: true,
+			value: function (data) {
+				var self = this;
+				var body = document.createElement('div');
+				var title = document.createElement('div');
+				var message = document.createElement('div');
+				var actions = document.createElement('div');
+
+				body.setAttribute('class', 'o-modal-body');
+				title.setAttribute('class', 'o-modal-title');
+				message.setAttribute('class', 'o-modal-message');
+				actions.setAttribute('class', 'o-modal-actions');
+
+				body.appendChild(title);
+				body.appendChild(message);
+				body.appendChild(actions);
+
+				title.innerText = data.title || '';
+				message.innerText = data.message || '';
+
+				if (data.actions) {
+
+					var actionContext = {
+						close: function () {
+							self.removeChild(body);
+							if (self.children.length > 1) return;
+							self.classList.remove('active');
+						}
+					};
+
+					for (var i = 0, l = data.actions.length; i < l; i++) {
+						var actionData = data.actions[i];
+						if (typeof actionData !== 'object') throw new Error('Oxe - Modal invalid action type');
+						if (!actionData.title) throw new Error('Oxe - Modal action title required');
+						if (!actionData.method) throw new Error('Oxe - Modal action method required');
+						var actionElement = document.createElement('button');
+						actionElement.className = 'o-modal-action';
+						actionElement.innerText = actionData.title;
+						actionElement.onclick = actionData.method.bind(actionContext);
+						actions.appendChild(actionElement);
+					}
+
+				}
+
+				this.appendChild(body);
+				this.classList.add('active');
+			}
+		}
+	},
+	style: `
+		:host {
+			top: 0;
+			left: 0;
+			z-index: 3;
+			opacity: 0;
+			width: 100%;
+			height: 100%;
+			position: fixed;
+			pointer-events: none;
+			background-color: var(--o-modal-background);
+			transition: opacity var(--o-modal-transition);
+		}
+		:host.active {
+			opacity: 1;
+			z-index: 1000;
+			pointer-events: initial;
+		}
+		.o-modal-body {
+			top: 50%;
+			left: 50%;
+			width: 30vw;
+			padding: 1rem;
+			margin: 0.6rem;
+			max-width: 600px;
+			position: absolute;
+			border-radius: 3px;
+			transform: translate(-50%, -50%);
+			background-color: var(--o-modal-widget);
+			box-shadow: 0 3px 6px var(--o-modal-shadow);
+		}
+		.o-modal-title {
+			padding: 1rem 0;
+			font-weight: 300;
+			font-size: 1.3rem;
+			color: currentColor;
+			word-break: break-word;
+			letter-spacing: 0.12rem;
+			text-transform: capitalize;
+		}
+		.o-modal-message {
+			padding: 1rem 0;
+			color: currentColor;
+		}
+		.o-modal-actions {
+			display: flex;
+			flex-warp: wrap;
+			padding: 1rem 0;
+			flex-direction: row;
+			justify-content: flex-end;
+		}
+		.o-modal-action {
+			margin: 0.3rem;
+		}
+	`
+};
