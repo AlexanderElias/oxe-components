@@ -1,6 +1,6 @@
 /*
 	Name: oxe-components
-	Version: 1.9.1
+	Version: 1.9.2
 	License: MPL-2.0
 	Author: Alexander Elias
 	Email: undefined
@@ -95,9 +95,9 @@ export default {
 		.o-modal-body {
 			top: 50%;
 			left: 50%;
-			width: 30vw;
 			padding: 1rem;
 			margin: 0.6rem;
+			min-width: 300px;
 			max-width: 600px;
 			position: absolute;
 			border-radius: 3px;

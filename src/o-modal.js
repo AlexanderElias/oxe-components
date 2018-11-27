@@ -85,7 +85,6 @@ export default {
 		.o-modal-body {
 			top: 50%;
 			left: 50%;
-			width: 30vw;
 			padding: 1rem;
 			margin: 0.6rem;
 			min-width: 300px;
