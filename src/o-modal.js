@@ -10,70 +10,75 @@ export default {
 			enumerable: true,
 			value: function (data) {
 				var self = this;
-				var closed = false;
-				var body = document.createElement('div');
-				var title = document.createElement('div');
-				var message = document.createElement('div');
-				var actions = document.createElement('div');
+				return new Promise(function (resolve) {
+					var closed = false;
+					var body = document.createElement('div');
+					var title = document.createElement('div');
+					var message = document.createElement('div');
+					var actions = document.createElement('div');
 
-				body.setAttribute('class', 'o-modal-body');
-				title.setAttribute('class', 'o-modal-title');
-				message.setAttribute('class', 'o-modal-message');
-				actions.setAttribute('class', 'o-modal-actions');
+					body.setAttribute('class', 'o-modal-body');
+					title.setAttribute('class', 'o-modal-title');
+					message.setAttribute('class', 'o-modal-message');
+					actions.setAttribute('class', 'o-modal-actions');
 
-				body.appendChild(title);
-				body.appendChild(message);
-				body.appendChild(actions);
+					body.appendChild(title);
+					body.appendChild(message);
+					body.appendChild(actions);
 
-				title.innerText = data.title || '';
-				message.innerText = data.message || '';
+					title.innerText = data.title || '';
+					message.innerText = data.message || '';
 
-				if (data.actions) {
+					if (data.actions) {
+						var actionItems = typeof data.actions === 'string' ? data.actions.split(/\s*,\s*/) : data.actions;
 
-					var actionContext = {
-						close: function () {
-							if (closed) return;
-							closed = true;
-							self.removeChild(body);
-							if (self.children.length > 1) return;
-							self.classList.remove('active');
+						var close = function () {
+							return new Promise(function (r) {
+								if (closed) return r();
+								closed = true;
+								body.classList.remove('active');
+								body.addEventListener('transitionend', function l (event) {
+									self.removeChild(body);
+									if (self.children.length > 1) return r();
+									self.classList.remove('active');
+									self.addEventListener('transitionend', function l (event) {
+										r();
+										self.removeEventListener('transitionend', l);
+									});
+									body.removeEventListener('transitionend', l);
+								});
+							});
+						};
+
+						for (var i = 0, l = actionItems.length; i < l; i++) {
+							var actionOption = actionItems[i];
+
+							if (typeof actionOption !== 'object') actionOption = { title: actionOption };
+							if (typeof actionOption.title !== 'string') throw new Error('o-modal action title required');
+
+							var actionElement = document.createElement('button');
+
+							if (self.options.action && self.options.action.class) {
+								actionElement.className = 'o-modal-action ' + self.options.action.class;
+							} else {
+								actionElement.className = 'o-modal-action';
+							}
+
+							actionElement.onclick = function (title) {
+								if (data.close === undefined || data.close === true) close();
+								resolve({ title: title, close: close });
+							}.bind(null, actionOption.title);
+
+							actionElement.innerText = actionOption.title;
+							actions.appendChild(actionElement);
 						}
-					};
 
-					for (var i = 0, l = data.actions.length; i < l; i++) {
-						var actionOption = data.actions[i];
-
-						if (typeof actionOption !== 'object') throw new Error('Oxe - Modal invalid action type');
-						if (!actionOption.title) throw new Error('Oxe - Modal action title required');
-
-						var actionElement = document.createElement('button');
-
-						if (self.options.action && self.options.action.class) {
-							actionElement.className = 'o-modal-action ' + self.options.action.class;
-						} else {
-							actionElement.className = 'o-modal-action';
-						}
-
-						actionElement.onclick = function (context, option) {
-							Promise.resolve().then(function () {
-								if (typeof option.method === 'function') {
-									return option.method.call(context);
-								}
-							}).then(function () {
-								if (option.close === undefined || option.close === true) {
-									return context.close();
-								}
-							}).catch(console.error);
-						}.bind(null, actionContext, actionOption);
-
-						actionElement.innerText = actionOption.title;
-						actions.appendChild(actionElement);
 					}
 
-				}
-
-				self.appendChild(body);
-				self.classList.add('active');
+					self.appendChild(body);
+					self.classList.add('active');
+					body.classList.add('active');
+				});
 			}
 		}
 	},
@@ -98,6 +103,7 @@ export default {
 		.o-modal-body {
 			top: 50%;
 			left: 50%;
+			opacity: 0;
 			padding: 1rem;
 			margin: 0.6rem;
 			min-width: 300px;
@@ -107,6 +113,10 @@ export default {
 			transform: translate(-50%, -50%);
 			background-color: var(--o-modal-widget);
 			box-shadow: 0 3px 6px var(--o-modal-shadow);
+			transition: opacity var(--o-modal-transition);
+		}
+		.o-modal-body.active {
+			opacity: 1;
 		}
 		.o-modal-title {
 			padding: 1rem 0;

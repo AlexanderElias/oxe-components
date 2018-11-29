@@ -21,12 +21,12 @@
 	--o-panel-background: rgba(0, 0, 0, 0.1);
 
 	--o-modal-widget: #999;
-	--o-modal-transition: 600ms ease;
+	--o-modal-transition: 300ms ease-in-out;
 	--o-modal-shadow: rgba(0, 0, 0, 0.3);
 	--o-modal-background: rgba(0, 0, 0, 0.3);
 
 	--o-toast-widget: #999;
-	--o-toast-transition: 600ms ease;
+	--o-toast-transition: 300ms ease-in-out;
 	--o-toast-shadow: rgba(0, 0, 0, 0.1);
 
 }

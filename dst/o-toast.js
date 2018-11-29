@@ -1,6 +1,6 @@
 /*
 	Name: oxe-components
-	Version: 1.10.0
+	Version: 1.10.1
 	License: MPL-2.0
 	Author: Alexander Elias
 	Email: undefined
@@ -26,6 +26,7 @@ export default {
 			enumerable: true,
 			value: function (data) {
 				var self = this;
+				var time = data.time || self.time;
 				var toast = document.createElement('div');
 				var title = document.createElement('div');
 				var message = document.createElement('div');
@@ -58,19 +59,19 @@ export default {
 				self.appendChild(toast);
 				self.classList.add('active');
 
-				var e = toast.addEventListener('transitionend', function () {
+				toast.addEventListener('transitionend', function l () {
 					setTimeout(function () {
 
-						var e = toast.addEventListener('transitionend', function () {
+						toast.addEventListener('transitionend', function l () {
 							self.removeChild(toast);
 							self.classList.remove('active');
-							toast.removeEventListener('transitionend', e);
+							toast.removeEventListener('transitionend', l);
 						});
 
 						toast.classList.remove('active');
-					}, self.time);
+					}, time);
 
-					toast.removeEventListener('transitionend', e);
+					toast.removeEventListener('transitionend', l);
 				});
 
 				window.requestAnimationFrame(function () {
@@ -91,7 +92,6 @@ export default {
 			display: flex;
 			flex: 1 1 100%;
 			position: fixed;
-			padding-top: 55px;
 			pointer-events: none;
 			flex-direction: column-reverse;
 			transition: all var(--o-toast-transition);

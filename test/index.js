@@ -31,31 +31,28 @@ import oPanel from './lib/o-panel.js';
 	window.toast = function () {
 		toast.open({
 			title: t++,
+			// time: 90000,
 			message: 'message'
 		});
 	};
 
-	window.modal = function () {
-		modal.open({
+	window.modal = async function () {
+		const action = await modal.open({
 			title: m++,
+			// close: false,
 			message: 'message',
-			actions: [
-				{
-					title: 'close',
-				},
-				{
-					title: 'confirm',
-					method: function () {
-						return new Promise(function (resolve) {
-							setTimeout(function () {
-								console.log('confirm clicked');
-								resolve();
-							}, 1500);
-						});
-					}
-				}
-			]
+			actions: [ 'close', 'confirm' ]
 		});
+
+		if (action.title === 'confirm') {
+			setTimeout(async function () {
+				console.log('confirm clicked');
+				// await action.close();
+			}, 1500);
+		} else {
+			// await action.close();
+		}
+
 	};
 
 	document.body.insertBefore(toast, document.body.firstChildElement);
