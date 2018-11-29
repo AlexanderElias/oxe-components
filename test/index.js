@@ -42,8 +42,16 @@ import oPanel from './lib/o-panel.js';
 			actions: [
 				{
 					title: 'close',
+				},
+				{
+					title: 'confirm',
 					method: function () {
-						this.close();
+						return new Promise(function (resolve) {
+							setTimeout(function () {
+								console.log('confirm clicked');
+								resolve();
+							}, 1500);
+						});
 					}
 				}
 			]
