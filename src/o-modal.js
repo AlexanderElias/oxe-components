@@ -10,6 +10,7 @@ export default {
 			enumerable: true,
 			value: function (data) {
 				var self = this;
+				var closed = false;
 				var body = document.createElement('div');
 				var title = document.createElement('div');
 				var message = document.createElement('div');
@@ -31,6 +32,8 @@ export default {
 
 					var actionContext = {
 						close: function () {
+							if (closed) return;
+							closed = true;
 							self.removeChild(body);
 							if (self.children.length > 1) return;
 							self.classList.remove('active');
@@ -38,11 +41,10 @@ export default {
 					};
 
 					for (var i = 0, l = data.actions.length; i < l; i++) {
-						var actionData = data.actions[i];
+						var actionOption = data.actions[i];
 
-						if (typeof actionData !== 'object') throw new Error('Oxe - Modal invalid action type');
-						if (!actionData.title) throw new Error('Oxe - Modal action title required');
-						if (!actionData.method) throw new Error('Oxe - Modal action method required');
+						if (typeof actionOption !== 'object') throw new Error('Oxe - Modal invalid action type');
+						if (!actionOption.title) throw new Error('Oxe - Modal action title required');
 
 						var actionElement = document.createElement('button');
 
@@ -52,8 +54,19 @@ export default {
 							actionElement.className = 'o-modal-action';
 						}
 
-						actionElement.innerText = actionData.title;
-						actionElement.onclick = actionData.method.bind(actionContext);
+						actionElement.onclick = function (context, option) {
+							Promise.resolve().then(function () {
+								if (typeof option.method === 'function') {
+									return option.method.call(context);
+								}
+							}).then(function () {
+								if (option.close === undefined || option.close === true) {
+									return context.close();
+								}
+							}).catch(console.error);
+						}.bind(null, actionContext, actionOption);
+
+						actionElement.innerText = actionOption.title;
 						actions.appendChild(actionElement);
 					}
 
