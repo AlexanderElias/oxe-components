@@ -11,14 +11,14 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/AlexanderElias/oxe-components.git"
+		"url": "git+https://github.com/vokeio/oxe-components.git"
 	},
 	"author": "Alexander Elias",
 	"license": "MPL-2.0",
 	"bugs": {
-		"url": "https://github.com/AlexanderElias/oxe-components/issues"
+		"url": "https://github.com/vokeio/oxe-components/issues"
 	},
-	"homepage": "https://github.com/AlexanderElias/oxe-components#readme",
+	"homepage": "https://github.com/vokeio/oxe-components#readme",
 	"devDependencies": {
 		"oxe": "^3.18.0"
 	}
