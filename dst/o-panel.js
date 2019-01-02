@@ -1,6 +1,6 @@
 /*
 	Name: oxe-components
-	Version: 1.12.2
+	Version: 1.12.3
 	License: MPL-2.0
 	Author: Alexander Elias
 	Email: undefined
@@ -290,16 +290,6 @@ export default {
 		    padding: 0 1.6rem;
 		    transition: all var(--o-panel-transition);
 		}
-		.o-panel-menu-items-title {
-			all: unset;
-		    display: flex;
-		    cursor: pointer;
-		    padding: 0.9rem;
-		    align-items: center;
-		    background-color: transparent;
-			justify-content: space-between;
-		    transition: background-color var(--o-panel-transition);
-		}
 		.o-panel-menu-items-title::after {
 			content: '';
 			margin: 3px;
@@ -310,7 +300,6 @@ export default {
 			border-width: 0 3px 3px 0;
 		}
 		.o-panel-menu-item, .o-panel-menu-items-title {
-			all: unset;
 			display: flex;
 			cursor: pointer;
 			align-items: center;
@@ -323,6 +312,10 @@ export default {
 		}
 		.o-panel-menu-item:active, .o-panel-menu-items-title:active {
 			background-color: var(--o-panel-menu-item-active);
+		}
+		.o-panel-menu-items-title {
+			padding: 0.9rem;
+			justify-content: space-between;
 		}
 		.o-panel-tray-container {
 			top: 0;
