@@ -160,7 +160,7 @@ export default {
 		self.setup();
 		self.hidden = false;
 	},
-	style: `
+	style: css`
 		:host {
 			z-index: 1;
 			width: 100%;
@@ -278,6 +278,52 @@ export default {
 				rotate(-45deg)
 				translate(-13px, 17px);
 		}
+		.o-panel-menu-items:hover > .o-panel-menu-items-body {
+			opacity: 1;
+			max-height: 300px;
+			padding-top: 0.9rem;
+			padding-bottom: 0.9rem;
+		}
+		.o-panel-menu-items-body {
+			opacity: 0;
+			max-height: 0;
+		    padding: 0 1.6rem;
+		    transition: all var(--o-panel-transition);
+		}
+		.o-panel-menu-items-title {
+			all: unset;
+		    display: flex;
+		    cursor: pointer;
+		    padding: 0.9rem;
+		    align-items: center;
+		    background-color: transparent;
+			justify-content: space-between;
+		    transition: background-color var(--o-panel-transition);
+		}
+		.o-panel-menu-items-title::after {
+			content: '';
+			margin: 3px;
+			padding: 3px;
+			display: inline-block;
+			transform: rotate(45deg);
+			border-width: 0 3px 3px 0;
+			border: solid var(--o-panel-icon);
+		}
+		.o-panel-menu-item, .o-panel-menu-items-title {
+			all: unset;
+			display: flex;
+			cursor: pointer;
+			align-items: center;
+			padding: 0.9rem 1.3rem;
+			background-color: transparent;
+			transition: background-color var(--o-panel-transition);
+		}
+		.o-panel-menu-item:hover, .o-panel-menu-items-title:hover {
+			background-color: var(--o-panel-menu-item-hover);
+		}
+		.o-panel-menu-item:active, .o-panel-menu-items-title:active {
+			background-color: var(--o-panel-menu-item-active);
+		}
 		.o-panel-tray-container {
 			top: 0;
 			right: 0;
@@ -313,21 +359,6 @@ export default {
 			display: flex;
 			flex: 0 1 auto;
 			flex-direction: column;
-		}
-		.o-panel-item {
-			all: unset;
-			display: flex;
-			cursor: pointer;
-			align-items: center;
-			padding: 0.9rem 1.3rem;
-			background-color: transparent;
-			transition: background-color var(--o-panel-transition);
-		}
-		.o-panel-item:hover {
-			background-color: var(--o-panel-item-hover);
-		}
-		.o-panel-item:active {
-			background-color: var(--o-panel-item-active);
 		}
 		.o-panel-notification {
 			display: flex;
