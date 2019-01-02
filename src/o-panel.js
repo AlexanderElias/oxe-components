@@ -296,8 +296,8 @@ export default {
 			padding: 3px;
 			display: inline-block;
 			transform: rotate(45deg);
-			border-width: 0 3px 3px 0;
 			border: solid var(--o-panel-icon);
+			border-width: 0 3px 3px 0;
 		}
 		.o-panel-menu-item, .o-panel-menu-items-title {
 			all: unset;
