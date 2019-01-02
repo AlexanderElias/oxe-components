@@ -150,7 +150,7 @@ export default {
 		self.setup();
 		self.hidden = false;
 	},
-	style: css`
+	style: `
 		:host {
 			z-index: 1;
 			width: 100%;
