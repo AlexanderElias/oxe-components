@@ -302,6 +302,7 @@ export default {
 		.o-panel-menu-items-body {
 			opacity: 0;
 			max-height: 0;
+			pointer-events: none;
 		    transition: all var(--o-panel-transition);
 		}
 		.o-panel-menu-items-title::after {
@@ -318,6 +319,7 @@ export default {
 		.o-panel-menu-items.active > .o-panel-menu-items-body {
 			opacity: 1;
 			max-height: 300px;
+			pointer-events: initial;
 		}
 		.o-panel-menu-items.active > .o-panel-menu-items-title::after {
 			transform: rotate(-135deg);
