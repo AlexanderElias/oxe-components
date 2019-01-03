@@ -307,6 +307,7 @@ export default {
 			transform: rotate(45deg);
 			border: solid var(--o-panel-icon);
 			border-width: 0 2px 2px 0;
+			transition: transform var(--o-panel-transition);
 		}
 
 		.o-panel-menu-item, .o-panel-menu-items-title {
