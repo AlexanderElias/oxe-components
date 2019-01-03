@@ -268,27 +268,47 @@ export default {
 				rotate(-45deg)
 				translate(-13px, 17px);
 		}
+
+		.o-panel-menu-items-body {
+			position: relative;
+		}
+		.o-panel-menu-items-body::before {
+		    top: 0;
+		    bottom: 0;
+		    width: 2px;
+			content: '';
+		    left: 0.9rem;
+		    display: block;
+		    position: absolute;
+			background: var(--o-panel-icon);
+		}
+		.o-panel-menu-items > .o-panel-menu-items-body > .o-panel-menu-item {
+		    padding-left: 1.6rem;
+		}
+
 		.o-panel-menu-items:hover > .o-panel-menu-items-body {
 			opacity: 1;
 			max-height: 300px;
-			padding-top: 0.9rem;
-			padding-bottom: 0.9rem;
 		}
 		.o-panel-menu-items-body {
 			opacity: 0;
 			max-height: 0;
-		    padding: 0 1.6rem;
 		    transition: all var(--o-panel-transition);
+		}
+
+		.o-panel-menu-items:hover > .o-panel-menu-items-title::after {
+			transform: rotate(-135deg);
 		}
 		.o-panel-menu-items-title::after {
 			content: '';
-			margin: 3px;
-			padding: 3px;
+			margin: 4px;
+			padding: 4px;
 			display: inline-block;
 			transform: rotate(45deg);
 			border: solid var(--o-panel-icon);
-			border-width: 0 3px 3px 0;
+			border-width: 0 2px 2px 0;
 		}
+
 		.o-panel-menu-item, .o-panel-menu-items-title {
 			display: flex;
 			cursor: pointer;

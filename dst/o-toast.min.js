@@ -1,6 +1,6 @@
 /*
 	Name: oxe-components
-	Version: 1.12.3
+	Version: 1.12.4
 	License: MPL-2.0
 	Author: Alexander Elias
 	Email: undefined
