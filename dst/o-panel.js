@@ -145,17 +145,31 @@ export default {
 
 		var routed = function () {
 			self.model.title = Oxe.location.route.title;
+			self.element.menuIcon.classList.remove('active');
+			self.element.trayIcon.classList.remove('active');
+			self.element.menuContainer.classList.remove('active');
+			self.element.trayContainer.classList.remove('active');
 			// if (self.model.hides.includes(Oxe.location.pathname)) {
 			// } else {
 			// }
 		};
 
 		Oxe.router.on('routed', routed);
+		Oxe.router.on('route:after', routed);
+
 		self.element.menuIcon.addEventListener('click', toggle.bind(self, self.element.menuIcon, self.element.menuContainer));
 		self.element.trayIcon.addEventListener('click', toggle.bind(self, self.element.trayIcon, self.element.trayContainer));
 		self.element.clear.addEventListener('click', self.clear.bind(self));
 		self.element.background.addEventListener('click', self.close.bind(self));
+
 		window.addEventListener('keydown', self.close.bind(self));
+
+		var menuItems = self.querySelectorAll('.o-panel-menu-items > .o-panel-menu-items-title');
+		for (var i = 0, l = menuItems.length; i < l; i++) {
+			menuItems[i].addEventListener('click', function (event) {
+				event.target.parentElement.classList.toggle('active');
+			});
+		}
 
 		self.setup();
 		self.hidden = false;
@@ -295,19 +309,10 @@ export default {
 		.o-panel-menu-items > .o-panel-menu-items-body > .o-panel-menu-item {
 		    padding-left: 1.6rem;
 		}
-
-		.o-panel-menu-items:hover > .o-panel-menu-items-body {
-			opacity: 1;
-			max-height: 300px;
-		}
 		.o-panel-menu-items-body {
 			opacity: 0;
 			max-height: 0;
 		    transition: all var(--o-panel-transition);
-		}
-
-		.o-panel-menu-items:hover > .o-panel-menu-items-title::after {
-			transform: rotate(-135deg);
 		}
 		.o-panel-menu-items-title::after {
 			content: '';
@@ -317,6 +322,15 @@ export default {
 			transform: rotate(45deg);
 			border: solid var(--o-panel-icon);
 			border-width: 0 2px 2px 0;
+			transition: transform var(--o-panel-transition);
+		}
+
+		.o-panel-menu-items.active > .o-panel-menu-items-body {
+			opacity: 1;
+			max-height: 300px;
+		}
+		.o-panel-menu-items.active > .o-panel-menu-items-title::after {
+			transform: rotate(-135deg);
 		}
 
 		.o-panel-menu-item, .o-panel-menu-items-title {
