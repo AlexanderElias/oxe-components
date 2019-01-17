@@ -207,7 +207,7 @@ export default {
 			pointer-events: none;
 		}
 		.o-panel-icon > svg > path {
-			fill: var(--o-panel-icon);
+			fill: var(--o-panel-bar-icon);
 		}
 		.o-panel-bar-container {
 			top: 0;
@@ -255,7 +255,7 @@ export default {
 			position: absolute;
 			width: calc(100% - 6px);
 			transform-origin: 50% 50%;
-			background-color: var(--o-panel-icon);
+			background-color: var(--o-panel-bar-icon);
 			transition: transform var(--o-panel-transition);
 		}
 		.o-panel-menu-icon > div:nth-child(1) {
@@ -272,12 +272,10 @@ export default {
 				rotate(45deg)
 				translate(17px, 13px);
 		}
-		.o-panel-menu-icon.active > div:nth-child(2) {
-			transform:
-				rotate(45deg)
-				translate(17px, 13px);
-		}
 		.o-panel-menu-icon.active > div:nth-child(3) {
+			opacity: 0;
+		}
+		.o-panel-menu-icon.active > div:nth-child(2) {
 			transform:
 				rotate(-45deg)
 				translate(-13px, 17px);
@@ -294,7 +292,7 @@ export default {
 		    left: 0.9rem;
 		    display: block;
 		    position: absolute;
-			background: var(--o-panel-icon);
+			background: var(--o-panel-menu-icon);
 		}
 		.o-panel-menu-items > .o-panel-menu-items-body > .o-panel-menu-item {
 		    padding-left: 1.6rem;
@@ -311,7 +309,7 @@ export default {
 			padding: 4px;
 			display: inline-block;
 			transform: rotate(45deg);
-			border: solid var(--o-panel-icon);
+			border: solid var(--o-panel-menu-icon);
 			border-width: 0 2px 2px 0;
 			transition: transform var(--o-panel-transition);
 		}
@@ -437,7 +435,7 @@ export default {
 		<div class="o-panel-tray-container">
 			<div class="o-panel-tray-body"></div>
 			<div class="o-panel-tray-foot">
-				<div class="o-panel-clear-icon o-panel-icon">
+				<div class="o-panel-clear-icon o-panel-tray-icon">
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
 						<path d="M10 26h28v-4H10v4zm-4 8h28v-4H6v4zm8-20v4h28v-4H14z"/>
 					</svg>
