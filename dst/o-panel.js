@@ -445,7 +445,7 @@ export default {
 		<div class="o-panel-tray-container">
 			<div class="o-panel-tray-body"></div>
 			<div class="o-panel-tray-foot">
-				<div class="o-panel-clear-icon o-panel-tray-icon">
+				<div class="o-panel-clear-icon o-panel-icon">
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
 						<path d="M10 26h28v-4H10v4zm-4 8h28v-4H6v4zm8-20v4h28v-4H14z"/>
 					</svg>
