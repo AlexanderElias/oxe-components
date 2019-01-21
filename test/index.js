@@ -16,17 +16,12 @@ import oPanel from './lib/o-panel.js';
 
 	var t = 1;
 	var m = 1;
+	var n = 1;
 	var panel = document.querySelector('o-panel');
 	var toast = document.createElement('o-toast');
 	var modal = document.createElement('o-modal');
 
 	panel.model.title = 'Title';
-
-	// panel.notify({
-	//     title: 'title',
-	//     message: 'message',
-	//     details: 'details'
-	// });
 
 	window.toast = function () {
 		toast.open({
@@ -53,6 +48,14 @@ import oPanel from './lib/o-panel.js';
 			// await action.close();
 		}
 
+	};
+
+	window.notification = function () {
+		panel.notify({
+			title: n++,
+			detail: 'detail',
+			message: 'message'
+		});
 	};
 
 	document.body.insertBefore(toast, document.body.firstChildElement);

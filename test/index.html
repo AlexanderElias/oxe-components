@@ -11,17 +11,25 @@
 
 	<o-panel>
 		<div slot="menu-body">
-			<a class="o-panel-item">Overview</a>
-			<a class="o-panel-item">Settings</a>
+			<a class="o-panel-item" class="o-panel-menu-item">Overview</a>
+			<a class="o-panel-item" class="o-panel-menu-item">Settings</a>
+			<div class="o-panel-menu-items">
+				<div class="o-panel-menu-items-title">Items</div>
+				<div class="o-panel-menu-items-body">
+					<a href="#item-one" class="o-panel-menu-item">Item One</a>
+					<a href="#item-two" class="o-panel-menu-item">Item Two</a>
+				</div>
+			</div>
 		</div>
 		<div slot="menu-foot">
-			<a class="o-panel-item">Sign Out</a>
+			<a class="o-panel-item" class="o-panel-menu-item">Sign Out</a>
 		</div>
 	</o-panel>
 
 	<main>
 		<button onclick="toast()">Add Toast</button>
 		<button onclick="modal()">Add Modal</button>
+		<button onclick="notification()">Add Notification</button>
 	</main>
 
 </body>

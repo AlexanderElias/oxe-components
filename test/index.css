@@ -1,6 +1,12 @@
 :root {
 
-	--o-panel-icon: black;
+	/* --o-panel-icon: black; */
+	--o-panel-menu-icon: blue;
+	--o-panel-tray-icon: blue;
+	--o-panel-close-icon: blue;
+	--o-panel-clear-icon: blue;
+	--o-panel-guide-icon: blue;
+	--o-panel-collapse-icon: blue;
 
     --o-panel-bar-color: teal;
     --o-panel-menu-color: teal;
