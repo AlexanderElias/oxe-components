@@ -1,7 +1,7 @@
 
 var closeTemplate = document.createElement('div');
 
-closeTemplate.setAttribute('class', 'o-panel-notification-close o-panel-icon');
+closeTemplate.setAttribute('class', 'o-panel-remove-icon o-panel-icon');
 closeTemplate.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path d="M38 12.83L35.17 10 24 21.17 12.83 10 10 12.83 21.17 24 10 35.17 12.83 38 24 26.83 35.17 38 38 35.17 26.83 24z"/></svg>';
 
 export default {
@@ -164,6 +164,7 @@ export default {
 		self.setup();
 		self.hidden = false;
 	},
+	// style: css`
 	style: `
 	:host {
 		z-index: 1;
@@ -195,10 +196,17 @@ export default {
 		cursor: pointer;
 		border-radius: 3px;
 		box-sizing: border-box;
+		background-color: var(--o-panel-icon);
+		transition: all var(--o-panel-transition);
+	}
+	.o-panel-icon > * {
 		transition: all var(--o-panel-transition);
 	}
 	.o-panel-icon:hover {
 		background-color: var(--o-panel-icon-hover);
+	}
+	.o-panel-icon:focus {
+		background-color: var(--o-panel-icon-focus);
 	}
 	.o-panel-icon:active {
 		background-color: var(--o-panel-icon-active);
@@ -206,14 +214,15 @@ export default {
 	.o-panel-icon > svg {
 		pointer-events: none;
 	}
-	.o-panel-icon > svg > path {
-		fill: var(--o-panel-icon);
-	}
+	/* icon color start */
 	.o-panel-clear-icon > svg > path {
 		fill: var(--o-panel-clear-icon);
 	}
 	.o-panel-clear-icon:hover > svg > path {
 		fill: var(--o-panel-clear-icon-hover);
+	}
+	.o-panel-clear-icon:focus > svg > path {
+		fill: var(--o-panel-clear-icon-focus);
 	}
 	.o-panel-clear-icon:active > svg > path {
 		fill: var(--o-panel-clear-icon-active);
@@ -224,9 +233,38 @@ export default {
 	.o-panel-tray-icon:hover > svg > path {
 		fill: var(--o-panel-tray-icon-hover);
 	}
+	.o-panel-tray-icon:focus > svg > path {
+		fill: var(--o-panel-tray-icon-focus);
+	}
 	.o-panel-tray-icon:active > svg > path {
 		fill: var(--o-panel-tray-icon-active);
 	}
+	.o-panel-menu-icon > div {
+		background-color: var(--o-panel-menu-icon);
+	}
+	.o-panel-menu-icon:hover > div {
+		background-color: var(--o-panel-menu-icon-hover);
+	}
+	.o-panel-menu-icon:focus > div {
+		background-color: var(--o-panel-menu-icon-focus);
+	}
+	.o-panel-menu-icon:active > div {
+		background-color: var(--o-panel-menu-icon-active);
+	}
+	.o-panel-remove-icon > svg > path {
+		fill: var(--o-panel-remove-icon);
+	}
+	.o-panel-remove-icon:hover > svg > path {
+		fill: var(--o-panel-remove-icon-hover);
+	}
+	.o-panel-remove-icon:focus > svg > path {
+		fill: var(--o-panel-remove-icon-focus);
+	}
+	.o-panel-remove-icon:active > svg > path {
+		fill: var(--o-panel-remove-icon-active);
+	}
+	/* icon color end */
+	/* bar start */
 	.o-panel-bar-container {
 		top: 0;
 		left: 0;
@@ -246,6 +284,8 @@ export default {
 		text-align: center;
 		text-transform: capitalize;
 	}
+	/* bar end */
+	/* menu start */
 	.o-panel-menu-container {
 		top: 0;
 		left: 0;
@@ -273,14 +313,13 @@ export default {
 		position: absolute;
 		width: calc(100% - 6px);
 		transform-origin: 50% 50%;
-		background-color: var(--o-panel-menu-icon);
 		transition: transform var(--o-panel-transition);
 	}
 	.o-panel-menu-icon > div:nth-child(1) {
-		transform: translate(3px, 19.5px);
+		transform: translate(3px, 17.5px);
 	}
 	.o-panel-menu-icon > div:nth-child(2) {
-		transform: translate(3px, 28.5px);
+		transform: translate(3px, 31.5px);
 	}
 	.o-panel-menu-icon > div:nth-child(3) {
 		transform: translate(3px, calc(48px - (9px + 3px)) );
@@ -289,9 +328,6 @@ export default {
 		transform:
 			rotate(45deg)
 			translate(17px, 13px);
-	}
-	.o-panel-menu-icon.active > div:nth-child(3) {
-		opacity: 0;
 	}
 	.o-panel-menu-icon.active > div:nth-child(2) {
 		transform:
@@ -356,6 +392,8 @@ export default {
 		padding: 0.9rem;
 		justify-content: space-between;
 	}
+	/* menu end */
+	/* tray start */
 	.o-panel-tray-container {
 		top: 0;
 		right: 0;
@@ -405,6 +443,8 @@ export default {
 		background-color: transparent;
 		border-bottom: solid 1px currentColor;
 	}
+	/* tray end */
+	/* notification start */
 	.o-panel-notification-title {
 		font-weight: bolder;
 		text-transform: capitalize;
@@ -423,26 +463,18 @@ export default {
 		padding: 1rem 0;
 		max-height: 300px;
 	}
-	.o-panel-notification-close {
+	.o-panel-notification:hover .o-panel-remove-icon {
+		opacity: 1;
+		height: 48px;
+	}
+	.o-panel-remove-icon {
 		height: 0;
 		opacity: 0;
 		right: 3px;
 		bottom: 3px;
 		position: absolute;
 	}
-	.o-panel-notification-close > svg > path {
-		fill: var(--o-panel-close-icon);
-	}
-	.o-panel-notification:hover .o-panel-notification-close {
-		opacity: 1;
-		height: 48px;
-	}
-	.o-panel-notification:hover .o-panel-notification-close:hover > svg > path {
-		fill: var(--o-panel-close-icon-hover);
-	}
-	.o-panel-notification:hover .o-panel-notification-close:active > svg > path {
-		fill: var(--o-panel-close-icon-active);
-	}
+	/* notification end */
 	`,
 	template: `
 	<div class="o-panel-background"></div>

@@ -3,10 +3,24 @@
 	/* --o-panel-icon: black; */
 	--o-panel-menu-icon: blue;
 	--o-panel-tray-icon: blue;
-	--o-panel-close-icon: blue;
 	--o-panel-clear-icon: blue;
 	--o-panel-guide-icon: blue;
+	--o-panel-remove-icon: blue;
 	--o-panel-collapse-icon: blue;
+
+	--o-panel-menu-icon-hover: red;
+	--o-panel-tray-icon-hover: red;
+	--o-panel-clear-icon-hover: red;
+	--o-panel-guide-icon-hover: red;
+	--o-panel-remove-icon-hover: red;
+	--o-panel-collapse-icon-hover: red;
+
+	--o-panel-menu-icon-active: green;
+	--o-panel-tray-icon-active: green;
+	--o-panel-clear-icon-active: green;
+	--o-panel-guide-icon-active: green;
+	--o-panel-remove-icon-active: green;
+	--o-panel-collapse-icon-active: green;
 
     --o-panel-bar-color: teal;
     --o-panel-menu-color: teal;
