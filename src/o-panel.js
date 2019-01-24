@@ -100,10 +100,10 @@ export default {
 				if (e.type ==='keydown' && e.keyCode === 27 || e.type === 'click') {
 					self.model.count = 0;
 					self.element.menuIcon.classList.remove('active');
-					self.element.menuContainer.classList.remove('active');
 					self.element.trayIcon.classList.remove('active');
-					self.element.trayContainer.classList.remove('active');
 					self.element.background.classList.remove('active');
+					self.element.menuContainer.classList.remove('active');
+					self.element.trayContainer.classList.remove('active');
 				}
 			}
 		}
@@ -112,13 +112,13 @@ export default {
 		var self = this;
 
 		self.element = {};
-		self.element.background = self.querySelector('.o-panel-background');
+		self.element.clear = self.querySelector('.o-panel-clear-icon');
 		self.element.menuIcon = self.querySelector('.o-panel-menu-icon');
-		self.element.menuContainer = self.querySelector('.o-panel-menu-container');
 		self.element.trayIcon = self.querySelector('.o-panel-tray-icon');
 		self.element.trayBody = self.querySelector('.o-panel-tray-body');
+		self.element.background = self.querySelector('.o-panel-background');
+		self.element.menuContainer = self.querySelector('.o-panel-menu-container');
 		self.element.trayContainer = self.querySelector('.o-panel-tray-container');
-		self.element.clear = self.querySelector('.o-panel-clear-icon');
 
 		var toggle = function (icon, container) {
 			var flag = icon.classList.toggle('active');
@@ -137,6 +137,7 @@ export default {
 			self.model.title = Oxe.location.route.title;
 			self.element.menuIcon.classList.remove('active');
 			self.element.trayIcon.classList.remove('active');
+			self.element.background.classList.remove('active');
 			self.element.menuContainer.classList.remove('active');
 			self.element.trayContainer.classList.remove('active');
 			// if (self.model.hides.includes(Oxe.location.pathname)) {
@@ -164,7 +165,6 @@ export default {
 		self.setup();
 		self.hidden = false;
 	},
-	// style: css`
 	style: `
 	:host {
 		z-index: 1;
