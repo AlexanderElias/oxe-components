@@ -165,7 +165,7 @@ export default {
 		self.setup();
 		self.hidden = false;
 	},
-	style: `
+	style: /*css*/`
 	:host {
 		z-index: 1;
 		width: 100%;
@@ -289,11 +289,14 @@ export default {
 	.o-panel-menu-container {
 		top: 0;
 		left: 0;
+        width: 45vw;
 		height: 100vh;
 		display: flex;
 		position: fixed;
-		flex-flow: column;
+        min-width: 150px;
+        max-width: 300px;
 		padding-top: 55px;
+		flex-flow: column;
 		box-sizing: border-box;
 		transform: translate(-100%, 0);
 		color: var(--o-panel-menu-color);
@@ -397,11 +400,14 @@ export default {
 	.o-panel-tray-container {
 		top: 0;
 		right: 0;
+        width: 45vw;
 		height: 100vh;
 		display: flex;
 		position: fixed;
-		flex-flow: column;
+        min-width: 150px;
+        max-width: 300px;
 		padding-top: 55px;
+		flex-flow: column;
 		box-sizing: border-box;
 		transform: translate(100%, 0);
 		color: var(--o-panel-tray-color);
@@ -414,11 +420,8 @@ export default {
 	}
 	[slot="menu-body"],
 	.o-panel-tray-body {
-		width: 30vw;
 		display: flex;
 		flex: 1 1 auto;
-		min-width: 150px;
-		max-width: 300px;
 		overflow-y: auto;
 		flex-direction: column;
 		justify-content: flex-start;
@@ -476,7 +479,7 @@ export default {
 	}
 	/* notification end */
 	`,
-	template: `
+	template: /*html*/`
 	<div class="o-panel-background"></div>
 
 	<div class="o-panel-menu-container">
