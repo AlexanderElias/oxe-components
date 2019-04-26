@@ -1,6 +1,6 @@
 /*
 	Name: oxe-components
-	Version: 3.0.2
+	Version: 3.0.4
 	License: MPL-2.0
 	Author: Alexander Elias
 	Email: undefined
@@ -83,26 +83,30 @@ export default {
 			}
 		}
 	},
-	style: `
+	style: /*css*/`
 		:host {
 			top: 0;
 			right: 0;
 			z-index: 2;
-			height: 100vh;
+            width: 50%;
+			height: 100%;
 			display: flex;
-			flex: 1 1 100%;
 			position: fixed;
+            min-width: 150px;
+            max-width: 300px;
+            align-items: center;
 			pointer-events: none;
+            box-sizing: border-box;
+            justify-content: flex-start;
 			flex-direction: column-reverse;
 			transition: all var(--o-toast-transition);
 		}
 		.o-toast {
-			width: 30vw;
+			width: 90%;
 			margin: 3px;
 			padding: 1rem;
-			min-width: 150px;
-			max-width: 300px;
 			border-radius: 3px;
+            box-sizing: border-box;
 			transform: translateX(100%);
 			background-color: var(--o-toast-widget);
 			box-shadow: 0 3px 6px var(--o-toast-shadow);
