@@ -26,7 +26,7 @@ import oPanel from './lib/o-panel.js';
 	window.toast = function () {
 		toast.open({
 			title: t++,
-			// time: 90000,
+			time: 90000,
 			message: 'message'
 		});
 	};
