@@ -1,6 +1,6 @@
 /*
 	Name: oxe-components
-	Version: 3.0.1
+	Version: 3.0.2
 	License: MPL-2.0
 	Author: Alexander Elias
 	Email: undefined
@@ -357,18 +357,6 @@ export default {
 			translate(-13px, 17px);
 	}
 	/* menu end */
-    /* guide start */
-	.o-panel-guide::before {
-	    top: 0;
-	    bottom: 0;
-	    width: 2px;
-		content: '';
-	    left: 0.9rem;
-	    display: block;
-	    position: absolute;
-		background-color: var(--o-panel-guide-icon);
-	}
-    /* guid end */
     /* item start */
 	.o-panel-items-body {
 		position: relative;
@@ -386,7 +374,8 @@ export default {
 	}
 
     /* dropdown start */
-	.o-panel-menu-container .o-panel-items-title::after, .o-panel-tray-container .o-panel-items-title::before {
+	.o-panel-menu-container .o-panel-items-title::after,
+    .o-panel-tray-container .o-panel-items-title::before {
 		content: '';
 		margin: 4px;
 		padding: 4px;
@@ -400,6 +389,16 @@ export default {
 	.o-panel-menu-container .o-panel-items.active > .o-panel-items-title::after,
     .o-panel-tray-container .o-panel-items.active > .o-panel-items-title::before {
 		transform: rotate(-135deg);
+	}
+	.o-panel-menu-container .o-panel-items-body::before {
+	    top: 0;
+	    bottom: 0;
+	    width: 2px;
+		content: '';
+	    left: 0.9rem;
+	    display: block;
+	    position: absolute;
+		background-color: var(--o-panel-guide-icon);
 	}
 
 	.o-panel-items.active > .o-panel-items-body {
