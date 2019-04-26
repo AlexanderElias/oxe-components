@@ -1,8 +1,8 @@
 
-var closeTemplate = document.createElement('div');
+var removeTemplate = document.createElement('div');
 
-closeTemplate.setAttribute('class', 'o-panel-remove-icon o-panel-icon');
-closeTemplate.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path d="M38 12.83L35.17 10 24 21.17 12.83 10 10 12.83 21.17 24 10 35.17 12.83 38 24 26.83 35.17 38 38 35.17 26.83 24z"/></svg>';
+removeTemplate.setAttribute('class', 'o-panel-remove-icon o-panel-icon');
+removeTemplate.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path d="M38 12.83L35.17 10 24 21.17 12.83 10 10 12.83 21.17 24 10 35.17 12.83 38 24 26.83 35.17 38 38 35.17 26.83 24z"/></svg>';
 
 export default {
 	name: 'o-panel',
@@ -44,35 +44,44 @@ export default {
 			value: function (data, flag) {
 				var self = this;
 
-				var notification = document.createElement('div');
+				var item = document.createElement('div');
+				var body = document.createElement('div');
 				var detail = document.createElement('div');
 				var message = document.createElement('div');
 				var title = document.createElement('div');
-				var close = closeTemplate.cloneNode(true);
+				var remove = removeTemplate.cloneNode(true);
 
-				close.addEventListener('click', function (e) {
-					var notification = e.target.parentElement;
-					var tray = e.target.parentElement.parentElement;
-					var index = Array.prototype.indexOf.call(tray.children, notification);
+    			item.addEventListener('click', function (event) {
+    				event.target.parentElement.classList.toggle('active');
+    			});
+
+				remove.addEventListener('click', function (e) {
+					var body = e.target.parentElement.parentElement;
+					var tray = e.target.parentElement.parentElement.parentElement;
+					var index = Array.prototype.indexOf.call(tray.children, body);
 					self.removeNotification(index);
-					tray.removeChild(notification)
+					tray.removeChild(body)
 				});
 
-				title.setAttribute('class', 'o-panel-notification-title');
-				notification.setAttribute('class', 'o-panel-notification');
-				detail.setAttribute('class', 'o-panel-notification-detail');
-				message.setAttribute('class', 'o-panel-notification-message');
+				item.setAttribute('class', 'o-panel-items');
+                body.setAttribute('class', 'o-panel-items-body');
+
+				title.setAttribute('class', 'o-panel-items-title');
+				// detail.setAttribute('class', 'o-panel-notification-detail');
+				message.setAttribute('class', 'o-panel-item-message');
 
 				title.innerText = data.title || '';
-				detail.innerText = data.detail || '';
+				// detail.innerText = data.detail || '';
 				message.innerText = data.message || '';
 
-				notification.appendChild(title);
-				notification.appendChild(message);
-				notification.appendChild(detail);
-				notification.appendChild(close);
+				body.appendChild(title);
+				body.appendChild(message);
+				// body.appendChild(detail);
+				body.appendChild(remove);
+                item.appendChild(title);
+				item.appendChild(body);
 
-				self.element.trayBody.appendChild(notification);
+				self.element.trayBody.appendChild(item);
 
 				if (flag) return;
 
@@ -155,7 +164,7 @@ export default {
 
 		window.addEventListener('keydown', self.close.bind(self));
 
-		var menuItems = self.querySelectorAll('.o-panel-menu-items > .o-panel-menu-items-title');
+		var menuItems = self.querySelectorAll('.o-panel-items > .o-panel-items-title');
 		for (var i = 0, l = menuItems.length; i < l; i++) {
 			menuItems[i].addEventListener('click', function (event) {
 				event.target.parentElement.classList.toggle('active');
@@ -289,8 +298,8 @@ export default {
 	.o-panel-menu-container {
 		top: 0;
 		left: 0;
-        width: 45vw;
-		height: 100vh;
+        width: 45%;
+		height: 100%;
 		display: flex;
 		position: fixed;
         min-width: 150px;
@@ -337,10 +346,9 @@ export default {
 			rotate(-45deg)
 			translate(-13px, 17px);
 	}
-	.o-panel-menu-items-body {
-		position: relative;
-	}
-	.o-panel-menu-items-body::before {
+	/* menu end */
+    /* guide start */
+	.o-panel-guide::before {
 	    top: 0;
 	    bottom: 0;
 	    width: 2px;
@@ -350,34 +358,46 @@ export default {
 	    position: absolute;
 		background-color: var(--o-panel-guide-icon);
 	}
-	.o-panel-menu-items > .o-panel-menu-items-body > .o-panel-menu-item {
+    /* guid end */
+    /* item start */
+	.o-panel-items-body {
+		position: relative;
+	}
+	.o-panel-items > .o-panel-items-body > .o-panel-item {
 	    padding-left: 1.6rem;
 	}
-	.o-panel-menu-items-body {
+	.o-panel-items-body {
 		opacity: 0;
 		max-height: 0;
+        display: flex;
 		pointer-events: none;
+        flex-direction: column;
 	    transition: all var(--o-panel-transition);
 	}
-	.o-panel-menu-items-title::after {
+
+    /* dropdown start */
+	.o-panel-menu-container .o-panel-items-title::after, .o-panel-tray-container .o-panel-items-title::before {
 		content: '';
 		margin: 4px;
 		padding: 4px;
 		display: inline-block;
+		border-style: solid;
 		transform: rotate(45deg);
-		border: solid var(--o-panel-collapse-icon);
 		border-width: 0 2px 2px 0;
+		border-color: var(--o-panel-collapse-icon);
 		transition: transform var(--o-panel-transition);
 	}
-	.o-panel-menu-items.active > .o-panel-menu-items-body {
+	.o-panel-menu-container .o-panel-items.active > .o-panel-items-title::after,
+    .o-panel-tray-container .o-panel-items.active > .o-panel-items-title::before {
+		transform: rotate(-135deg);
+	}
+
+	.o-panel-items.active > .o-panel-items-body {
 		opacity: 1;
 		max-height: 300px;
 		pointer-events: initial;
 	}
-	.o-panel-menu-items.active > .o-panel-menu-items-title::after {
-		transform: rotate(-135deg);
-	}
-	.o-panel-menu-item, .o-panel-menu-items-title {
+	.o-panel-item, .o-panel-items-title {
 		display: flex;
 		cursor: pointer;
 		align-items: center;
@@ -385,23 +405,28 @@ export default {
 		background-color: transparent;
 		transition: background-color var(--o-panel-transition);
 	}
-	.o-panel-menu-item:hover, .o-panel-menu-items-title:hover {
-		background-color: var(--o-panel-menu-item-hover);
+	.o-panel-item:hover, .o-panel-items-title:hover {
+		background-color: var(--o-panel-item-hover);
 	}
-	.o-panel-menu-item:active, .o-panel-menu-items-title:active {
-		background-color: var(--o-panel-menu-item-active);
+	.o-panel-item:active, .o-panel-items-title:active {
+		background-color: var(--o-panel-item-active);
 	}
-	.o-panel-menu-items-title {
+	.o-panel-items-title {
 		padding: 0.9rem;
 		justify-content: space-between;
 	}
-	/* menu end */
+	.o-panel-item-message {
+        padding: 0.9rem;
+        padding-left: 1.6rem;
+        justify-content: space-between;
+	}
+	/* item end */
 	/* tray start */
 	.o-panel-tray-container {
 		top: 0;
 		right: 0;
-        width: 45vw;
-		height: 100vh;
+        width: 45%;
+		height: 100%;
 		display: flex;
 		position: fixed;
         min-width: 150px;
@@ -433,49 +458,14 @@ export default {
 		flex: 0 1 auto;
 		flex-direction: column;
 	}
-	.o-panel-notification {
-		display: flex;
-		flex: 0 0 auto;
-		cursor: pointer;
-		text-align: left;
-		overflow: hidden;
-		position: relative;
-		padding: 0.9rem 1.3rem;
-		flex-direction: column;
-		align-items: flex-start;
-		background-color: transparent;
-		border-bottom: solid 1px currentColor;
+	.o-panel-tray-container .o-panel-remove-icon {
+        align-self: flex-end;
 	}
 	/* tray end */
 	/* notification start */
 	.o-panel-notification-title {
 		font-weight: bolder;
 		text-transform: capitalize;
-	}
-	.o-panel-notification-message {
-		text-align: left;
-	}
-	.o-panel-notification-detail {
-		opacity: 0;
-		padding: 0;
-		max-height: 0;
-		transition: max-height var(--o-panel-transition), padding var(--o-panel-transition), opacity var(--o-panel-transition);
-	}
-	.o-panel-notification:hover .o-panel-notification-detail {
-		opacity: 1;
-		padding: 1rem 0;
-		max-height: 300px;
-	}
-	.o-panel-notification:hover .o-panel-remove-icon {
-		opacity: 1;
-		height: 48px;
-	}
-	.o-panel-remove-icon {
-		height: 0;
-		opacity: 0;
-		right: 3px;
-		bottom: 3px;
-		position: absolute;
 	}
 	/* notification end */
 	`,
