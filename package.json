@@ -7,7 +7,7 @@
 		"b": "node build.js",
 		"t": "muleify -sw test",
 		"w": "muleify -pw src test/lib",
-		"co": "cp node_modules/oxe/dst/oxe.min.js test/."
+		"co": "cp node_modules/oxe/dev/oxe.js test/oxe.min.js"
 	},
 	"repository": {
 		"type": "git",
@@ -20,6 +20,6 @@
 	},
 	"homepage": "https://github.com/vokeio/oxe-components#readme",
 	"devDependencies": {
-		"oxe": "^3.18.0"
+		"oxe": "github:vokeio/oxe"
 	}
 }
