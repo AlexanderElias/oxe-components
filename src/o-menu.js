@@ -16,9 +16,32 @@ var Create = function (name, attributes) {
     var el = document.createElementNS(ns, name);
     for (var n in attributes) {
         var v = attributes[n];
-        el.setAttributeNS(null, n, v);
+        el.setAttribute(n, v);
     }
     return el;
+};
+
+var Transform = function (n, e) {
+    var p = new RegExp(n+'(.*)');
+    var a = e.getAttribute('transform') || '';
+    var v = Array.prototype.slice.call(arguments, 2).join(',');
+    e.setAttribute('transform', a.replace(p, n+'('+v+')'));
+};
+
+var Rotate = function (e, d, x, y) {
+    var c = e.getBBox();
+    x = x + (c.width/2);
+    y = y + (c.height/2);
+    Transform('rotate', e, d, x, y);
+};
+
+var Translate = function (e, x, y) {
+    var c = e.getBBox();
+    console.log(c);
+    x = x + (c.width/2);
+    y = y + (c.height/2);
+    console.log(y);
+    Transform('translate', e, x, y);
 };
 
 export default {
@@ -40,8 +63,13 @@ export default {
             // xmlns: 'http://www.w3.org/2000/svg'
         });
 
-        var rectOne = Create('rect', { width: '100', height: '10', x: '50', y: '30', transform: 'translate(-50,-5)' });
-        var rectTwo = Create('rect', { width: '100', height: '10', x: '50', y: '70', transform: 'translate(-50,-5)' });
+        // x: '50', y: '30', transform: 'translate(-50,-5)'
+        // , x: '50', y: '70', transform: 'translate(-50,-5)'
+        var rectOne = Create('rect', { width: '100', height: '10' });
+        var rectTwo = Create('rect', { width: '100', height: '10' });
+
+        Translate(rectOne, 50, 30);
+        Translate(rectTwo, 50, 70);
 
         menuIcon.appendChild(rectOne);
         menuIcon.appendChild(rectTwo);
@@ -79,8 +107,20 @@ export default {
         menuIcon.addEventListener('click', function () {
         	menuListMain.classList.toggle('active');
         	self.classList.toggle('active');
-            rectOne.setAttribute('transform', 'translate(-50,-5) rotate(-45 125 72)');
-            rectTwo.setAttribute('transform', 'translate(-50,-5) rotate(45 125 32)');
+
+            // rectOne.y = 50;
+            // rectTwo.y = 50;
+
+            var coordOne = rectOne.getBBox();
+            var coordTwo = rectTwo.getBBox();
+
+            var xcOne = 50 + (coordOne.width/2);
+            var xcTwo = 50 + (coordTwo.width/2);
+            var ycOne = 50 + (coordOne.height/2);
+            var ycTwo = 50 + (coordTwo.height/2);
+
+            rectOne.setAttribute('transform', 'rotate(-45,'+xcOne+','+ycOne+')');
+            rectTwo.setAttribute('transform', 'rotate(45,'+xcTwo+','+ycTwo+')');
         });
 
         menuTool.appendChild(menuIcon);
