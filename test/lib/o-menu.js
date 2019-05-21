@@ -60,7 +60,7 @@ export default {
             // var p = Create('path', { d: 'M50 50 L90 0 L95 5 L60 50 M50 50 L90 100 L95 95 L60 50' });
             // i.appendChild(p);
             // a.parentElement.insertBefore(i, a);
-            
+
             a.addEventListener('click', function (target) {
                 rectOne.setAttribute('width', '50');
                 rectTwo.setAttribute('width', '50');
@@ -129,41 +129,6 @@ export default {
     	min-height: 100%;
         max-height: 90vh;
 	}
-
-    /* :host li > ul::before {
-        content: '';
-    	margin: 0.3rem;
-    	display: inline-block;
-    	vertical-align: middle;
-    	border-top: 0.3rem solid transparent;
-    	border-right: 0.6rem solid currentColor;
-    	border-bottom: 0.3rem solid transparent;
-    } */
-
-    /* .menu-arrow-left {
-    	width: 0;
-    	height: 0;
-    	margin: 0.3rem;
-    	display: inline-block;
-    	vertical-align: middle;
-    	border-top: 0.3rem solid transparent;
-    	border-right: 0.6rem solid currentColor;
-    	border-bottom: 0.3rem solid transparent;
-    }
-    .menu-arrow-right {
-    	width: 0;
-    	height: 0;
-    	margin: 0.3rem;
-    	display: inline-block;
-    	vertical-align: middle;
-    	border-top: 0.3rem solid transparent;
-    	border-left: 0.6rem solid currentColor;
-    	border-bottom: 0.3rem solid transparent;
-    }
-    li.active > a > .menu-arrow-right {
-    	transform: rotate(90deg);
-    } */
-
 	`,
 	template: /*html*/`
 	   <slot name="body"></slot>
