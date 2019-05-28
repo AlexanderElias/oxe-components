@@ -77,8 +77,10 @@ export default {
     	z-index: 1;
     	width: 100%;
     	display: block;
+        max-height: 100%;
     	position: relative;
     	box-sizing: border-box;
+        transition: max-height ease-in-out 150ms;
 	}
     :host > svg {
         margin: 0.1rem;
@@ -106,13 +108,11 @@ export default {
     	box-sizing: border-box;
     }
     :host ul {
-		top: 48px;
-        min-height: 0;
         max-height: 0;
         overflow: hidden;
     	list-style: none;
-		position: absolute;
-        transition: max-height ease-in-out 150ms, min-height ease-in-out 150ms;
+		position: relative;
+        transition: max-height ease-in-out 150ms;
     }
     :host li:hover, :host li:focus, :host li:active, :host li:visited {
     	background: rgba(0,0,0,0.1);
@@ -123,10 +123,11 @@ export default {
 	}
     :host ul > li > ul {
 		top: 0;
+        height: 100%;
+		position: absolute;
     }
 	:host ul.active {
     	z-index: 1;
-    	min-height: 100%;
         max-height: 90vh;
 	}
 	`,
