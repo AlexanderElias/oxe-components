@@ -37,13 +37,13 @@ export default {
             	var active = self.classList.toggle('active');
 
                 if (active) {
-                    document.body.style.overflowY = 'hidden';
-                    
+                    window.document.documentElement.style.overflowY = 'hidden';
+
                     rectOne.setAttribute('style', 'transform: rotate(45deg) translate(15%,-5%)');
                     rectTwo.setAttribute('style', 'transform: rotate(-45deg) translate(-50%,60%)');
                     // path.setAttribute('d', 'M2 8 L8 2 L98 92 L92 98 M2 92 L92 2 L98 8 L8 98');
                 } else {
-                    document.body.style.overflowY = 'initial';
+                    window.document.documentElement.style.overflowY = 'initial';
 
                     rectOne.setAttribute('style', 'transform: translate(0,25%)');
                     rectTwo.setAttribute('style', 'transform: translate(0,65%)');
