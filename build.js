@@ -44,7 +44,6 @@ const prepend = async function (data, path) {
 
 		await Muleify.pack(`src/${item}`, `dst/${name}.min.js`, options);
 		await prepend(header, `dst/${name}.min.js`);
-
 	}
 
 }()).catch(console.error);
