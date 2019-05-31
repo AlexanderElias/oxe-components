@@ -45,11 +45,16 @@ export default {
             } else {
                 mainList.classList.toggle('active');
             	var active = self.classList.toggle('active');
+
                 if (active) {
+                    window.document.documentElement.style.overflowY = 'hidden';
+
                     rectOne.setAttribute('style', 'transform: rotate(45deg) translate(15%,-5%)');
                     rectTwo.setAttribute('style', 'transform: rotate(-45deg) translate(-50%,60%)');
                     // path.setAttribute('d', 'M2 8 L8 2 L98 92 L92 98 M2 92 L92 2 L98 8 L8 98');
                 } else {
+                    window.document.documentElement.style.overflowY = 'initial';
+
                     rectOne.setAttribute('style', 'transform: translate(0,25%)');
                     rectTwo.setAttribute('style', 'transform: translate(0,65%)');
                     // path.setAttribute('d', 'M0 25 L100 25 L100 35 L0 35 M0 65 L0 65 L100 65 L100 75 L0 75 L0 65');
