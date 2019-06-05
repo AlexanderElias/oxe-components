@@ -5,9 +5,9 @@
 	"main": "index.js",
 	"scripts": {
 		"b": "node build.js",
-		"t": "muleify -sw test",
-		"w": "muleify -pw src test/lib",
-		"co": "cp node_modules/oxe/dev/oxe.js test/oxe.min.js"
+		"t": "muleify -sw tst",
+		"w": "muleify -pw src tst/lib",
+		"co": "cp node_modules/oxe/dev/oxe.js tst/oxe.min.js"
 	},
 	"repository": {
 		"type": "git",
