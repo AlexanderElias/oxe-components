@@ -266,15 +266,10 @@ export default [
                     var select = this._select;
 
                     if (!select.multiple) {
-                        var o = select.options[0];
-                        if (selected && o && this !== o) {
-                            o.selected = false
+                        var old = select.selectedOptions[0];
+                        if (old && this !== old) {
+                            old.selected = false
                         }
-                        // for (var i = 0, l = options.length; i < l; i++) {
-                        //     if (options[i] !== this && !selected) {
-                        //         options[i].selected = false;
-                        //     }
-                        // }
                     }
 
                     var index = select._selectedOptions.indexOf(this);
@@ -323,14 +318,6 @@ export default [
         created: function () {
             var self = this;
 
-            // if (!self.parentElement) {
-            //     return;
-            // }
-
-            // if (self.parentElement.nodeName !== 'O-SELECT' && self.parentElement.nodeName !== 'O-OPTGROUP') {
-            //     return console.warn('o-option invalid parent element');
-            // }
-
             self.addEventListener('click', function () {
                 var group = self._group;
                 var select = self._select;
@@ -343,7 +330,11 @@ export default [
 
                 if (select) {
                     var binder = Oxe.binder.get('attribute', select, 'o-value');
-                    Oxe.binder.render(binder, 'view');
+
+                    if (binder) {
+                        Oxe.binder.render(binder, 'view');
+                    }
+                
                 }
 
             });
