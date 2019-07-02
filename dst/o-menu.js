@@ -22,6 +22,7 @@ export default {
 	created: function () {
 		var self = this;
 
+        var width = 726;
         var iconColor = self.getAttribute('data-icon') || '#000';
 
         /* icon */
@@ -66,6 +67,7 @@ export default {
         icon.appendChild(rectTwo);
         self.insertBefore(icon, self.firstElementChild);
 
+        var previous;
         var lists = self.querySelectorAll('ul > li > a ~ ul');
         for (var i = 0, l = lists.length; i < l; i++) {
             var ul = lists[i];
@@ -77,12 +79,25 @@ export default {
             // a.parentElement.insertBefore(i, a);
 
             a.addEventListener('click', function (target) {
+                console.log(target);
                 rectOne.setAttribute('width', '50');
                 rectTwo.setAttribute('width', '50');
                 rectOne.setAttribute('style', 'transform: rotate(45deg) translate(45%,15%)');
                 rectTwo.setAttribute('style', 'transform: rotate(-45deg) translate(-25%,45%)');
                 // path.setAttribute('d', 'M50 50 L90 0 L95 5 L60 50 M50 50 L90 100 L95 95 L60 50');
                 target.classList.toggle('active');
+
+                // if (window.innerWidth > width) {
+                //     if (previous && previous !== target) {
+                //         previous.classList.remove('active');
+                //         previous = target;
+                //     } else {
+                //         previous = target;
+                //     }
+                // } else {
+                //     previous = null;
+                // }
+
             }.bind(null, ul));
         }
 
@@ -95,56 +110,93 @@ export default {
         max-height: 100%;
     	position: relative;
     	box-sizing: border-box;
-        transition: max-height ease-in-out 150ms;
+        /* transition: max-height ease-in-out 150ms; */
+        transition: max-height ease-in-out 600ms;
 	}
     :host > svg {
-        margin: 0.1rem;
-        display: block;
-    	cursor: pointer;
-    	box-sizing: border-box;
-    }
-    :host > svg > rect {
-        transition: transform ease-in-out 150ms, width ease-in-out 150ms;
+        display: none;
     }
     :host a {
-    	cursor: pointer;
     	min-width: 100%;
+    	cursor: pointer;
     	display: inline-block;
     	padding: 1.3rem 2.3rem;
     	vertical-align: middle;
     	box-sizing: border-box;
     }
-    :host ul, :host li {
-    	margin: 0;
-    	padding: 0;
-    	width: 100%;
-    	display: block;
-    	text-align: center;
-    	box-sizing: border-box;
-    }
     :host ul {
         max-height: 0;
-        overflow: hidden;
     	list-style: none;
 		position: relative;
         transition: max-height ease-in-out 150ms;
+    }
+    :host > ul {
+    	width: 100%;
+    	display: block;
+        max-height: initial;
+    	text-align: center;
+    	box-sizing: border-box;
+    }
+    :host ul > li > ul {
+        overflow: hidden;
+		position: absolute;
+    }
+    :host > ul > li {
+        display: inline-block;
+    }
+    :host > ul > li > ul {
+		top: 100%;
+    }
+    :host > ul > li > ul ul {
+        position: initial;
     }
     :host li:hover, :host li:focus, :host li:active, :host li:visited {
     	background: rgba(0,0,0,0.1);
     }
     :host li > a {
 		display: block;
-		padding: 1.3rem 0;
 	}
-    :host ul > li > ul {
-		top: 0;
-        height: 100%;
-		position: absolute;
-    }
 	:host ul.active {
     	z-index: 1;
+        overflow-y: auto;
         max-height: 90vh;
 	}
+    @media only screen and (max-width: 768px) {
+        :host > svg {
+            display: block;
+        	cursor: pointer;
+            margin: 0 0.1rem;
+        	box-sizing: border-box;
+        }
+        :host > svg > rect {
+            transition: transform ease-in-out 150ms, width ease-in-out 150ms;
+        }
+        :host ul, :host li {
+        	margin: 0;
+        	padding: 0;
+        	width: 100%;
+        	display: block;
+            overflow: hidden;
+        	text-align: center;
+        	box-sizing: border-box;
+        }
+        :host ul {
+            max-height: 0;
+    		top: 0 !important;
+        }
+        :host > ul > li > ul ul {
+    		position: absolute;
+        }
+    	:host > ul ul.active {
+        	z-index: 1;
+            height: 100%;
+            max-height: 100%;
+    	}
+    	:host > ul.active {
+        	z-index: 1;
+            max-height: 90vh;
+    	}
+    }
 	`,
 	template: /*html*/`
 	   <slot name="body"></slot>

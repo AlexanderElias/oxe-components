@@ -136,15 +136,9 @@ export default {
     }
     :host > ul > li > ul {
 		top: 100%;
-        /* overflow: hidden; */
-		/* position: absolute; */
     }
     :host > ul > li > ul ul {
         position: initial;
-		/* top: 0; */
-        /* height: 100%; */
-        /* overflow: hidden; */
-		/* position: absolute; */
     }
     :host li:hover, :host li:focus, :host li:active, :host li:visited {
     	background: rgba(0,0,0,0.1);
@@ -152,7 +146,6 @@ export default {
     :host li > a {
 		display: block;
 	}
-	/* :host ul > li > ul.active { */
 	:host ul.active {
     	z-index: 1;
         overflow-y: auto;
