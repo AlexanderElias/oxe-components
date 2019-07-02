@@ -21,5 +21,6 @@
 	"homepage": "https://github.com/arcdevio/oxe-components#readme",
 	"devDependencies": {
 		"oxe": "github:vokeio/oxe"
-	}
+	},
+	"dependencies": {}
 }

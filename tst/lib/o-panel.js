@@ -143,18 +143,14 @@ export default {
 		};
 
 		var routed = function () {
-			self.model.title = Oxe.location.route.title;
+			self.model.title = window.document.title;
 			self.element.menuIcon.classList.remove('active');
 			self.element.trayIcon.classList.remove('active');
 			self.element.background.classList.remove('active');
 			self.element.menuContainer.classList.remove('active');
 			self.element.trayContainer.classList.remove('active');
-			// if (self.model.hides.includes(Oxe.location.pathname)) {
-			// } else {
-			// }
 		};
 
-		Oxe.router.on('routed', routed);
 		Oxe.router.on('route:after', routed);
 
 		self.element.menuIcon.addEventListener('click', toggle.bind(self, self.element.menuIcon, self.element.menuContainer));
