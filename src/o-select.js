@@ -3,16 +3,15 @@ export default [
     {
         name: 'o-select',
         template: '<slot></slot>',
+        attributes: [ 'multiple' ],
         style: 'o-select { display: block; }',
+        attributed: function (name, _, data) {
+            switch (name) {
+                case 'multiple': this.multiple = false; break;
+            }
+        },
         properties: {
             _selectedOptions: { writable: true, value: [] },
-            // _selectedIndex: { writable: true, value: -1 },
-            // selectedIndex: {
-            //     enumerable: true,
-            //     get: function () {
-            //         return this._selectedIndex;
-            //     }
-            // },
             selectedOptions: {
                 enumerable: true,
                 get: function () {
@@ -72,8 +71,16 @@ export default [
                 },
                 set: function (data) {
                     data = data ? true : false;
-                    if (data) this.setAttribute('multiple', '');
-                    else this.removeAttribute('multiple');
+
+                    if (data) {
+                        this.setAttribute('multiple', '');
+                    } else {
+                        this.removeAttribute('multiple');
+                        this._selectedOptions.slice(1).forEach(function (option) {
+                            option.selected = false;
+                        });
+                    }
+
                     return data;
                 }
             },
@@ -87,83 +94,6 @@ export default [
                     return data;
                 }
             }
-        },
-        created: function () {
-            // var self = this;
-            //
-            // var click = function (e) {
-            //
-            //     if (self.disabled || e.target === self) {
-            //         return;
-            //     }
-            //
-            //     var option = e.target;
-            //
-            //     if (option.nodeName !== 'O-OPTION') {
-            //         while (option = option.parentElement) {
-            //             if (option === self) {
-            //                 return;
-            //             } else if (option.nodeName === 'O-OPTION') {
-            //                 if (option.disabled) {
-            //                     return;
-            //                 } else {
-            //                     break;
-            //                 }
-            //             }
-            //         }
-            //     }
-            //
-            //     var optgroup = option;
-            //
-            //     if (optgroup && optgroup.nodeName !== 'O-OPTGROUP') {
-            //         while (optgroup = optgroup.parentElement) {
-            //             if (optgroup === self) {
-            //                 break;
-            //             } else if (optgroup.nodeName === 'O-OPTGROUP') {
-            //                 if (optgroup.disabled) {
-            //                     return;
-            //                 } else {
-            //                     break;
-            //                 }
-            //             }
-            //         }
-            //     }
-            //
-            //     if (!self.multiple) {
-            //         var options = self.options;
-            //         for (var i = 0, l = options.length; i < l; i++) {
-            //             options[i].selected = false;
-            //         }
-            //     }
-            //
-            //     if (option) {
-            //         option.selected = !option.selected;
-            //     }
-            //
-            //     var index = self._selectedOptions.indexOf(option);
-            //
-            //     if (option.selected) {
-            //         if (index === -1) {
-            //             self._selectedOptions.push(option);
-            //         }
-            //     } else {
-            //         if (index !== -1) {
-            //             self._selectedOptions.splice(index, 1);
-            //         }
-            //     }
-            //
-            //     var binder = Oxe.binder.get('attribute', self, 'o-value');
-            //     Oxe.binder.render(binder, 'view');
-            // };
-            //
-            // self.addEventListener('click', click);
-            //
-            // var options = this.querySelectorAll('o-option');
-            // for (var i = 0, l = options.length; i < l; i++) {
-            //     Object.defineProperty(options[i], 'select', { value: this });
-            //     click({ target: options[i] });
-            // }
-
         }
     },
     {
@@ -203,7 +133,7 @@ export default [
                     } else if (this.parentElement.parentElement && this.parentElement.parentElement.nodeName === 'O-SELECT') {
                         return this.parentElement.parentElement;
                     } else {
-                        return console.warn('o-option invalid parent type');
+                        console.warn('o-option invalid parent type');
                     }
                 }
             },
@@ -257,15 +187,14 @@ export default [
                 },
                 set: function (data) {
                     this._selectedDefaultLocked = true;
+
+                    var select = this._select;
                     var selected = this._selected = data ? true : false;
 
-                    // maybe use toggle attribute neeed to test in IE
                     if (selected) this.setAttribute('data-selected', '');
                     else this.removeAttribute('data-selected');
 
-                    var select = this._select;
-
-                    if (!select.multiple) {
+                    if (select.multiple === false) {
                         var old = select.selectedOptions[0];
                         if (old && this !== old) {
                             old.selected = false
@@ -312,7 +241,7 @@ export default [
         },
         attributed: function (name, _, data) {
             switch (name) {
-            case 'value': this._value = data || ''; break;
+                case 'value': this._value = data || ''; break;
             }
         },
         created: function () {
@@ -334,7 +263,7 @@ export default [
                     if (binder) {
                         Oxe.binder.render(binder, 'view');
                     }
-                
+
                 }
 
             });
