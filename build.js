@@ -42,7 +42,7 @@ const prepend = async function (data, path) {
 		const data = await ReadFile(`src/${item}`);
 		await WriteFile(`dst/${item}`, `${header}${data}`);
 
-		await Muleify.pack(`src/${item}`, `dst/${name}.min.js`, options);
+		await Muleify.packer(`src/${item}`, `dst/${name}.min.js`, options);
 		await prepend(header, `dst/${name}.min.js`);
 	}
 

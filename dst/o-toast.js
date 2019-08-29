@@ -1,6 +1,6 @@
 /*
 	Name: oxe-components
-	Version: 4.0.0
+	Version: 4.0.1
 	License: MPL-2.0
 	Author: Arc io
 	Email: undefined
