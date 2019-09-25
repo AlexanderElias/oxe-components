@@ -5,6 +5,9 @@ export default [
         template: '<slot></slot>',
         attributes: [ 'multiple' ],
         style: 'o-select { display: block; }',
+        created: function () {
+            this.tabIndex = 0;
+        },
         attributed: function (name, _, data) {
             switch (name) {
                 case 'multiple': this.multiple = false; break;
@@ -34,7 +37,7 @@ export default [
                 enumerable: true,
                 value: function () {
                     if (this.required) {
-                        return this.selectedOptions.length ? true : false;
+                        return this._selectedOptions.length ? true : false;
                     } else {
                         return true;
                     }
@@ -195,7 +198,7 @@ export default [
                     else this.removeAttribute('data-selected');
 
                     if (select.multiple === false) {
-                        var old = select.selectedOptions[0];
+                        var old = select._selectedOptions[0];
                         if (old && this !== old) {
                             old.selected = false
                         }
