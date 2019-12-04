@@ -1,6 +1,6 @@
 /*
 	Name: oxe-components
-	Version: 4.1.0
+	Version: 4.1.1
 	License: MPL-2.0
 	Author: Arc IO
 	Email: undefined
@@ -156,9 +156,13 @@ export default [
         properties: {
             _select: {
                 get: function () {
-                    if (this.parentElement && this.parentElement.nodeName === 'O-SELECT') {
+                    if (!this.parentElement) {
+                        return null;
+                    } else if (this.parentElement.nodeName === 'O-SELECT') {
                         return this.parentElement;
-                    } else if (this.parentElement.parentElement && this.parentElement.parentElement.nodeName === 'O-SELECT') {
+                    } else if (!this.parentElement.parentElement) {
+                        return null;
+                    } else if (this.parentElement.parentElement.nodeName === 'O-SELECT') {
                         return this.parentElement.parentElement;
                     } else {
                         console.warn('o-option invalid parent type');
@@ -216,11 +220,12 @@ export default [
                 set: function (data) {
                     this._selectedDefaultLocked = true;
 
-                    var select = this._select;
                     var selected = this._selected = data ? true : false;
-
                     if (selected) this.setAttribute('data-selected', '');
                     else this.removeAttribute('data-selected');
+
+                    var select = this._select;
+                    if (!select) return selected;
 
                     if (select.multiple === false) {
                         var old = select._selectedOptions[0];
