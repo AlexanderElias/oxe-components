@@ -1,8 +1,8 @@
 /*
 	Name: oxe-components
-	Version: 4.0.1
+	Version: 4.1.0
 	License: MPL-2.0
-	Author: Arc io
+	Author: Arc IO
 	Email: undefined
 	This Source Code Form is subject to the terms of the Mozilla Public
 	License, v. 2.0. If a copy of the MPL was not distributed with this

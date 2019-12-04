@@ -1,8 +1,8 @@
 /*
 	Name: oxe-components
-	Version: 4.0.1
+	Version: 4.1.0
 	License: MPL-2.0
-	Author: Arc io
+	Author: Arc IO
 	Email: undefined
 	This Source Code Form is subject to the terms of the Mozilla Public
 	License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -15,6 +15,9 @@ export default [
         template: '<slot></slot>',
         attributes: [ 'multiple' ],
         style: 'o-select { display: block; }',
+        created: function () {
+            this.tabIndex = 0;
+        },
         attributed: function (name, _, data) {
             switch (name) {
                 case 'multiple': this.multiple = false; break;
@@ -44,7 +47,7 @@ export default [
                 enumerable: true,
                 value: function () {
                     if (this.required) {
-                        return this.selectedOptions.length ? true : false;
+                        return this._selectedOptions.length ? true : false;
                     } else {
                         return true;
                     }
@@ -108,6 +111,7 @@ export default [
     },
     {
         name: 'o-optgroup',
+        attributes: ['label'],
         template: '<slot></slot>',
         style: 'o-optgroup { display: block; } o-optgroup::before { content: attr(label); }',
         properties: {
@@ -122,6 +126,20 @@ export default [
                     else this.removeAttribute('disabled');
                     return data;
                 }
+            },
+            label: {
+                enumerable: true,
+                get: function () {
+                    return this.getAttribute('label');
+                },
+                set: function (data) {
+                    return this.setAttribute('label', data);
+                }
+            }
+        },
+        attributed: function (name, _, data) {
+            switch (name) {
+                case 'label': this.label = data; break;
             }
         },
         created: function () {
@@ -205,7 +223,7 @@ export default [
                     else this.removeAttribute('data-selected');
 
                     if (select.multiple === false) {
-                        var old = select.selectedOptions[0];
+                        var old = select._selectedOptions[0];
                         if (old && this !== old) {
                             old.selected = false
                         }
