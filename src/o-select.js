@@ -101,6 +101,7 @@ export default [
     },
     {
         name: 'o-optgroup',
+        attributes: ['label'],
         template: '<slot></slot>',
         style: 'o-optgroup { display: block; } o-optgroup::before { content: attr(label); }',
         properties: {
@@ -115,6 +116,20 @@ export default [
                     else this.removeAttribute('disabled');
                     return data;
                 }
+            },
+            label: {
+                enumerable: true,
+                get: function () {
+                    return this.getAttribute('label');
+                },
+                set: function (data) {
+                    return this.setAttribute('label', data);
+                }
+            }
+        },
+        attributed: function (name, _, data) {
+            switch (name) {
+                case 'label': this.label = data; break;
             }
         },
         created: function () {
