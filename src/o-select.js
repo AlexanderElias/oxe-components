@@ -300,12 +300,12 @@ export default [
             }
         },
         attached: function () {
+            
             if (this.select) {
                 this.select._options.push(this);
             }
 
             if (this.hasAttribute('selected')) {
-                this._click();
                 this.setAttribute('active', '');
             } else {
                 this.removeAttribute('active');
