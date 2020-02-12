@@ -219,8 +219,8 @@ export default [
                     this._selectedDefaultLocked = true;
 
                     var selected = this._selected = data ? true : false;
-                    if (selected) this.setAttribute('data-selected', '');
-                    else this.removeAttribute('data-selected');
+                    if (selected) this.setAttribute('active', '');
+                    else this.removeAttribute('active');
 
                     var select = this.select;
                     if (!select) return selected;
@@ -229,9 +229,12 @@ export default [
 
                     if (!select.multiple) {
                         for (var i = 0; i < options.length; i++) {
-                            if (this !== options[i]) {
-                                if (options[i].selected) {
-                                    options[i].selected = false;
+                            var option = options[i];
+                            if (this !== option) {
+                                if (option._selected) {
+                                    options.splice(i, 1);
+                                    option._selected = false;
+                                    option.removeAttribute('active');
                                 }
                             }
                         }
@@ -242,10 +245,12 @@ export default [
                     if (selected) {
                         if (index === -1) {
                             options.push(this);
+                            this.setAttribute('active', '');
                         }
                     } else {
                         if (index !== -1) {
                             options.splice(index, 1);
+                            this.removeAttribute('active');
                         }
                     }
 
@@ -301,9 +306,9 @@ export default [
 
             if (this.hasAttribute('selected')) {
                 this._click();
-                this.setAttribute('data-selected', '');
+                this.setAttribute('active', '');
             } else {
-                this.removeAttribute('data-selected');
+                this.removeAttribute('active');
             }
 
         },
